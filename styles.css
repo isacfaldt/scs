@@ -425,7 +425,7 @@ html.js .hero.swapping .hero-sub { opacity: 0; transform: translateY(10px); tran
   .svc-block.flip .svc-media { order: 0; }
   .svc-media { position: relative; top: auto; aspect-ratio: 16 / 10; }
   .why-band, .areas-grid, .book-grid { grid-template-columns: 1fr; }
-  .steps { grid-template-columns: 1fr; }
+  .steps, .logo-grid { grid-template-columns: 1fr; }
   .bk-services { grid-template-columns: 1fr; }
   .bk-steps .bk-lbl { display: none; }
   .bk-steps li { justify-content: center; }
