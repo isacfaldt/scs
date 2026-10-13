@@ -90,7 +90,8 @@
     const liveSvc = $('#bk-live-svc'), liveMeta = $('#bk-live-meta');
     const catOf = { 'Hemstädning': 'privat', 'Flyttstädning': 'privat', 'Storstädning': 'privat', 'Visningsstädning': 'privat', 'Fönsterputs': 'privat', 'Kontorsstädning': 'foretag', 'Lokalstädning': 'foretag', 'Trappstädning': 'foretag', 'Bostadsrättsförening': 'foretag', 'Flytthjälp': 'flytt', 'Kontorsflyttning': 'flytt', 'Packning': 'flytt', 'Magasinering': 'flytt' };
     const selected = () => form.querySelector('input[name="tjanst"]:checked');
-    const val = (id) => { const el = $(id); return el ? el.value.trim() : ''; };
+    const val = (id) => { const el = form.querySelector(id); return el ? el.value.trim() : ''; };
+    const inModal = !!form.closest('.modal');
     const radioVal = (name) => { const r = form.querySelector(`input[name="${name}"]:checked`); return r ? r.value : ''; };
     function showCat(cat) {
       $$('.bk-cat', form).forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
@@ -136,7 +137,8 @@
       stepsEls.forEach(s => { const k = +s.dataset.step; s.classList.toggle('active', k === n); s.classList.toggle('done', k < n); });
       back.hidden = n === 1; next.hidden = n === 4; send.hidden = n !== 4;
       if (n === 4) buildSummary();
-      if (!noScroll) { const top = form.getBoundingClientRect().top + scrollY - headerH() - 16; if (Math.abs(scrollY - top) > 60 && lenis) lenis.scrollTo(top, { duration: 0.8 }); }
+      if (inModal) { const dlg = form.closest('.modal-dialog'); if (dlg) dlg.scrollTo({ top: 0, behavior: 'smooth' }); }
+      else if (!noScroll) { const top = form.getBoundingClientRect().top + scrollY - headerH() - 16; if (Math.abs(scrollY - top) > 60 && lenis) lenis.scrollTo(top, { duration: 0.8 }); }
     }
     function validate(n) {
       if (n === 3 && (!val('#f-namn') || !val('#f-tel'))) { showToast(t('Fyll i namn och telefon så vi kan bekräfta tiden.', 'Please fill in your name and phone so we can confirm the time.')); (val('#f-namn') ? $('#f-tel') : $('#f-namn')).focus(); return false; }
@@ -152,40 +154,54 @@
       e.preventDefault();
       if (!validate(3)) { goStep(3); return; }
       const inp = selected();
-      const lines = [...$('#bk-summary').querySelectorAll('div')].map(d => d.querySelector('dt').textContent + ': ' + d.querySelector('dd').textContent);
+      const lines = [...form.querySelectorAll('#bk-summary div')].map(d => d.querySelector('dt').textContent + ': ' + d.querySelector('dd').textContent);
       const href = `mailto:info@swedencityservice.se?subject=${encodeURIComponent(t('Bokning: ', 'Booking: ') + tr(inp.value))}&body=${encodeURIComponent(lines.join('\n'))}`;
       form.classList.add('sent'); window.location.href = href;
     });
     preselect = function (name, extra) {
       const cat = catOf[name]; if (cat) { showCat(cat); const inp = form.querySelector(`input[name="tjanst"][value="${name}"]`); if (inp) { inp.checked = true; syncService(); } }
-      if (extra) { if (extra.postnr) $('#b-postnr').value = extra.postnr; if (extra.tel) $('#f-tel').value = extra.tel; if (extra.yta) $('#b-yta').value = extra.yta; updateLive(); }
+      if (extra) { if (extra.postnr) form.querySelector('#b-postnr').value = extra.postnr; if (extra.tel) form.querySelector('#f-tel').value = extra.tel; if (extra.yta) form.querySelector('#b-yta').value = extra.yta; updateLive(); }
       goStep(extra && extra.step ? extra.step : 1, true);
     };
     showCat('privat'); goStep(1, true);
     window.__scsPreselect = preselect;
   }
 
+  /* ---------- booking modal (undersidor) ---------- */
+  const modal = $('#bokamodal');
+  function openModal() { if (!modal) return; modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false'); document.body.classList.add('modal-open'); if (lenis) lenis.stop(); const dlg = $('.modal-dialog', modal); if (dlg) dlg.scrollTop = 0; }
+  function closeModal() { if (!modal) return; modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true'); document.body.classList.remove('modal-open'); if (lenis) lenis.start(); }
+  if (modal) { $$('[data-close]', modal).forEach(b => b.addEventListener('click', closeModal)); document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); }); }
+  function goBooking(extra) { if (modal) openModal(); else { const sec = $('#boka'); if (sec) scrollToEl(sec, 16); } }
+
   /* ---------- anchor links + prefill ---------- */
   $$('a[href^="#"], button[data-pre]').forEach(a => {
     a.addEventListener('click', e => {
-      const id = a.getAttribute('href'); const pre = a.dataset.pre; const page = a.dataset.page; const cat = a.dataset.cat;
-      const target = id && id.length > 1 ? $(id) : (pre ? $('#boka') : null);
+      const id = a.getAttribute('href'); const pre = a.dataset.pre; const cat = a.dataset.cat;
+      const isBook = id === '#boka' || (!id && pre);
+      if (isBook) { e.preventDefault(); closeMenu(); $$('.nav .has-sub.open').forEach(li => li.classList.remove('open')); if (pre) preselect(pre); goBooking(); return; }
+      const target = id && id.length > 1 ? $(id) : null;
       if (!target) return;
       e.preventDefault(); closeMenu(); $$('.nav .has-sub.open').forEach(li => li.classList.remove('open'));
-      if (pre) preselect(pre);
       if (cat && id === '#tjanster') showSvcCat(cat);
       scrollToEl(target, 16);
-      if (page) showToast(lang === 'en' ? (EN[page] || page) + ': its own page is built in the full build.' : page + ': egen undersida byggs i det färdiga bygget.');
     });
   });
-  /* service cards */
-  $$('.svc-card').forEach(c => c.addEventListener('click', () => { preselect(c.dataset.pre); scrollToEl($('#boka'), 16); }));
   /* hero quick form */
   const hf = $('#heroform');
-  if (hf) hf.addEventListener('submit', (e) => { e.preventDefault(); const svc = $('#h-tjanst').value; preselect(svc, { postnr: $('#h-postnr').value.trim(), tel: $('#h-tel').value.trim(), step: 2 }); scrollToEl($('#boka'), 16); });
-  /* footer mini form */
+  if (hf) hf.addEventListener('submit', (e) => { e.preventDefault(); const svc = $('#h-tjanst').value; preselect(svc, { postnr: $('#h-postnr').value.trim(), tel: $('#h-tel').value.trim(), step: 2 }); goBooking(); });
+  /* footer mini form + quick forms on service pages */
   const ff = $('#footform');
-  if (ff) ff.addEventListener('submit', (e) => { e.preventDefault(); preselect('Hemstädning', { postnr: $('#ff-postnr').value.trim(), yta: $('#ff-yta').value.trim(), step: 2 }); scrollToEl($('#boka'), 16); });
+  if (ff) ff.addEventListener('submit', (e) => { e.preventDefault(); preselect('Hemstädning', { postnr: $('#ff-postnr').value.trim(), yta: $('#ff-yta').value.trim(), step: 2 }); goBooking(); });
+  $$('.quick-form[data-pre]').forEach(qf => qf.addEventListener('submit', (e) => { e.preventDefault(); const yta = qf.querySelector('[data-yta]'), pn = qf.querySelector('[data-postnr]'); preselect(qf.dataset.pre, { yta: yta ? yta.value.trim() : '', postnr: pn ? pn.value.trim() : '', step: 2 }); goBooking(); }));
+  /* contact form: mailto in the sketch */
+  const kf = $('#kontaktform');
+  if (kf) kf.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const namn = $('#k-namn').value.trim(); if (!namn) { showToast(t('Fyll i ditt namn.', 'Please fill in your name.')); $('#k-namn').focus(); return; }
+    const body = [t('Namn', 'Name') + ': ' + namn, t('Telefon', 'Phone') + ': ' + $('#k-tel').value.trim(), t('E-post', 'Email') + ': ' + $('#k-epost').value.trim(), t('Ärende', 'Subject') + ': ' + $('#k-arende').value, '', $('#k-msg').value.trim()].join('\n');
+    kf.classList.add('sent'); window.location.href = `mailto:info@swedencityservice.se?subject=${encodeURIComponent($('#k-arende').value)}&body=${encodeURIComponent(body)}`;
+  });
 
   /* ---------- translation engine ---------- */
   const textNodes = [], attrNodes = [];
@@ -202,7 +218,7 @@
     document.title = en ? 'Sweden City Service · Cleaning and moving in Stockholm' : 'Sweden City Service · Städ och flytt i Stockholm';
     applyCopy(current);
     $$('.lang button').forEach(x => x.classList.toggle('active', x.dataset.lang === next));
-    const lm = $('#bk-live-meta'); if (lm) { const ev = new Event('input', { bubbles: true }); if (form) form.dispatchEvent(ev); }
+    if (form) form.dispatchEvent(new Event('input', { bubbles: true }));
     try { localStorage.setItem('scsLang', next); } catch (e) {}
   }
   $$('.lang button').forEach(b => b.addEventListener('click', () => { if (b.dataset.lang !== lang) setLang(b.dataset.lang); }));
