@@ -107,9 +107,31 @@
       updateLive();
     }
     function fmtDate(d) { if (!d) return ''; try { return new Date(d + 'T12:00:00').toLocaleDateString(lang === 'en' ? 'en-GB' : 'sv-SE', { weekday: 'short', day: 'numeric', month: 'short' }); } catch (e) { return d; } }
+    /* prisuppskattning (riktpriser, efter RUT där det gäller) */
+    const fmt = (n) => Math.round(n / 10) * 10;
+    const kr = (n) => fmt(n).toLocaleString('sv-SE') + ' kr';
+    function estimate(svc, m2, freq) {
+      const perM2 = { 'Flyttstädning': 39, 'Storstädning': 35, 'Visningsstädning': 35 };
+      if (svc === 'Hemstädning') { if (!m2) return null; const h = Math.max(2, Math.round((m2 / 35) * 2) / 2); const p = h * 279; return { val: t('ca ', 'approx. ') + kr(p), note: t(`${h} timmar à 279 kr efter RUT, per tillfälle`, `${h} hours at 279 kr after RUT, per visit`) }; }
+      if (perM2[svc]) { if (!m2) return null; const p = Math.max(1500, m2 * perM2[svc]); return { val: t('ca ', 'approx. ') + kr(p), note: t(`${m2} m² à ${perM2[svc]} kr efter RUT, allt material ingår`, `${m2} m² at ${perM2[svc]} kr after RUT, all supplies included`) }; }
+      if (svc === 'Fönsterputs') return { val: t('från 895 kr', 'from 895 kr'), note: t('per tillfälle efter RUT, beror på antal fönster', 'per visit after RUT, depends on the number of windows') };
+      if (svc === 'Flytthjälp') { if (!m2) return null; const h = Math.max(3, Math.round(m2 / 15)); return { val: t('ca ', 'approx. ') + kr(h * 449), note: t(`${h} timmar, två flyttare och bil, efter RUT`, `${h} hours, two movers and a van, after RUT`) }; }
+      if (svc === 'Packning') { if (!m2) return null; const h = Math.max(2, Math.round(m2 / 25)); return { val: t('ca ', 'approx. ') + kr(h * 249), note: t(`${h} timmar à 249 kr per person efter RUT`, `${h} hours at 249 kr per person after RUT`) }; }
+      if (svc === 'Magasinering') return { val: t('från 495 kr/mån', 'from 495 kr/month'), note: t('per kubikmeter, hämtning bokas som flytthjälp', 'per cubic metre, collection booked as moving help') };
+      return { val: t('Offert', 'Quote'), note: t('fast pris efter kostnadsfritt platsbesök', 'fixed price after a free site visit') };
+    }
+    const priceBox = $('#bk-price'), priceVal = $('#bk-price-val'), priceNote = $('#bk-price-note');
+    function updatePrice() {
+      const inp = selected(); if (!inp || !priceBox) return;
+      const est = estimate(inp.value, parseInt(val('#b-yta'), 10) || 0, radioVal('frekvens'));
+      if (!est) { priceBox.hidden = true; return; }
+      priceBox.hidden = false; priceVal.textContent = est.val; priceNote.textContent = est.note + '. ' + t('Riktpris, vi bekräftar.', 'Guide price, we confirm.');
+      return est;
+    }
     function updateLive() {
       const inp = selected(); if (!inp || !liveSvc) return;
       liveSvc.textContent = tr(inp.value);
+      updatePrice();
       const bits = [];
       if (val('#b-yta')) bits.push(val('#b-yta') + ' m²');
       if (inp.dataset.freq === '1' && radioVal('frekvens')) bits.push(tr(radioVal('frekvens')));
@@ -127,6 +149,7 @@
         [t('När', 'When'), (fmtDate(val('#b-datum')) || t('Snarast', 'As soon as possible')) + ', ' + tr(radioVal('tid')).toLowerCase()],
         [t('Kontakt', 'Contact'), [val('#f-namn'), val('#f-tel'), val('#f-epost')].filter(Boolean).join(' · ')],
         inp.dataset.rut === '1' ? [t('RUT-avdrag', 'RUT deduction'), form.querySelector('input[name="rut"]').checked ? t('Ja', 'Yes') : t('Nej', 'No')] : null,
+        (function () { const e = updatePrice(); return e ? [t('Uppskattat pris', 'Estimated price'), e.val + ' (' + t('riktpris', 'guide price') + ')'] : null; })(),
         val('#b-msg') ? [t('Övrigt', 'Other'), val('#b-msg')] : null
       ].filter(Boolean);
       $('#bk-summary').innerHTML = rows.map(r => `<div><dt>${r[0]}</dt><dd>${String(r[1]).replace(/</g, '&lt;')}</dd></div>`).join('');

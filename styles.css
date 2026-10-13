@@ -277,6 +277,11 @@ body.menu-open .mobile-menu { opacity: 1; visibility: visible; transform: none; 
 .bk-live-body { padding: 1.3rem 1.4rem 1.5rem; }
 .bk-live-svc { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: 2rem; line-height: 1; color: var(--navy); }
 .bk-live-meta { margin-top: 0.5rem; color: var(--ink-soft); font-size: 0.92rem; min-height: 1.4em; font-weight: 600; }
+.bk-price { margin-top: 1rem; padding: 1rem 1.1rem; background: var(--mint); border-radius: var(--radius-sm); display: grid; gap: 0.15rem; }
+.bk-price[hidden] { display: none; }
+.bk-price-lbl { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 900; color: var(--navy); }
+.bk-price-val { font-family: var(--font-display); font-weight: 800; font-size: 2.2rem; line-height: 1; color: var(--navy); }
+.bk-price-note { font-size: 0.82rem; color: var(--ink-soft); font-weight: 600; }
 .bk-live-note { margin-top: 1rem; padding: 0.9rem 1rem; background: var(--grey); border-radius: var(--radius-sm); font-size: 0.86rem; color: var(--ink-soft); font-weight: 600; }
 .bk-perks { margin-top: 1.1rem; display: grid; gap: 0.5rem; font-size: 0.9rem; font-weight: 700; }
 .bk-perks li { display: flex; gap: 0.6rem; align-items: center; }

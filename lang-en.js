@@ -69,7 +69,7 @@ window.SCS_EN = {
   "Tillbaka": "Back", "Nästa": "Next", "Skicka bokning": "Send booking",
   "Tack, din bokning är mottagen.": "Thank you, your booking has been received.",
   "Vi bekräftar tiden så snart vi kan. Brådskande? Ring 070-028 38 39.": "We confirm the time as soon as we can. Urgent? Call 070-028 38 39.",
-  "Din bokning": "Your booking", "Välj tjänst och fortsätt.": "Pick a service and continue.",
+  "Din bokning": "Your booking", "Uppskattat pris": "Estimated price", "Välj tjänst och fortsätt.": "Pick a service and continue.",
   "Gå vidare till sista steget så får du ett tydligt pris innan vi börjar.": "Go through to the last step and you get a clear price before we start.",
   "Kostnadsfri offert, inget bindande": "Free quote, no commitment", "Vi bekräftar tiden personligen": "We confirm the time personally", "RUT-avdrag dras direkt på fakturan": "RUT deduction taken off the invoice",
   "Vad är RUT?": "What is RUT?",
