@@ -30,7 +30,7 @@
   const copySv = [
     { l0: 'Professionell hemstädning', l1: 'i Stockholm', sub: 'Hemstädning, flyttstädning, storstädning, visningsstädning och fönsterputs i hela Stockholmsområdet. Med RUT-avdrag direkt på fakturan.' },
     { l0: 'Professionell kontorsstädning', l1: 'i Stockholm', sub: 'Kontorsstädning, lokalstädning och trappstädning med tydliga rutiner och utbildad personal. För företag, fastighetsägare och bostadsrättsföreningar.' },
-    { l0: 'Flytthjälp och transport', l1: 'i Stockholm', sub: 'Flytthjälp, kontorsflyttning, packning och magasinering. En enda kontakt som tar hand om hela flytten.' }
+    { l0: 'Flytthjälp för privatpersoner', l1: 'och företag i Stockholm', sub: 'Flytthjälp, kontorsflyttning, packning och magasinering. En enda kontakt som tar hand om hela flytten.' }
   ];
   const copyEn = window.SCS_HERO_EN || copySv;
   let current = 0, slideStart = performance.now(), swapping = false;
