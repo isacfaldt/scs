@@ -1,5 +1,18 @@
 /* Sweden City Service · engelsk ordlista v4 (svensk text -> engelsk text) */
 window.SCS_EN = {
+  "Loggan": "The logo",
+  "Ett rent märke som håller överallt.": "A clean mark that works everywhere.",
+  "Ordmärket SCS med ett hus i samma linje. Fungerar lika bra på hemsidan, bilen, kläderna och fakturan, i ljust och mörkt.": "The SCS wordmark with a house in the same line. Works just as well on the website, the van, the uniforms and the invoice, in light and dark.",
+  "Ljus": "Light",
+  "På vitt": "On white",
+  "Hemsida, brevpapper och fakturor.": "Website, stationery and invoices.",
+  "Mörk": "Dark",
+  "På marinblått": "On navy",
+  "Bil, arbetskläder och sociala medier.": "Van, workwear and social media.",
+  "Ikon": "Icon",
+  "Profilbild och app": "Profile picture and app",
+  "Huset ensamt när utrymmet är litet.": "The house alone when space is tight.",
+
   "Hem": "Home", "Tjänster": "Services", "Privat": "Private", "Företag": "Business", "Flytt": "Moving",
   "Hemstädning": "Home cleaning", "Flyttstädning": "Move-out cleaning", "Storstädning": "Deep cleaning", "Visningsstädning": "Pre-viewing cleaning", "Fönsterputs": "Window cleaning",
   "Kontorsstädning": "Office cleaning", "Lokalstädning": "Commercial cleaning", "Trappstädning": "Stairwell cleaning", "Bostadsrättsföreningar": "Housing associations", "Bostadsrättsförening": "Housing association",

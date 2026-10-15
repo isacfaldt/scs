@@ -35,7 +35,18 @@
   const copyEn = window.SCS_HERO_EN || copySv;
   let current = 0, slideStart = performance.now(), swapping = false;
   function heroCopy() { return lang === 'en' ? copyEn : copySv; }
-  function applyCopy(i) { const c = heroCopy()[i]; if (!titleLines.length) return; titleLines[0].textContent = c.l0; titleLines[1].textContent = c.l1; if (heroSub) heroSub.textContent = c.sub; }
+  const heroTitle = $('.hero-title');
+  /* krymp rubriken så att varje rad får plats på en rad (ingen radbrytning på desktop) */
+  function fitTitle() {
+    if (!heroTitle || innerWidth <= 640) { if (heroTitle) heroTitle.style.fontSize = ''; return; }
+    heroTitle.style.fontSize = '';
+    const base = parseFloat(getComputedStyle(heroTitle).fontSize); let s = 1;
+    titleLines.forEach(sp => { const w = sp.parentElement.clientWidth; const r = document.createRange(); r.selectNodeContents(sp); const need = r.getBoundingClientRect().width; if (need > w) s = Math.min(s, w / need); });
+    if (s < 1) heroTitle.style.fontSize = (base * s * 0.985) + 'px';
+  }
+  function applyCopy(i) { const c = heroCopy()[i]; if (!titleLines.length) return; titleLines[0].textContent = c.l0; titleLines[1].textContent = c.l1; if (heroSub) heroSub.textContent = c.sub; fitTitle(); }
+  addEventListener('resize', fitTitle);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTitle);
   function playSlide(i) {
     slides.forEach((s, k) => { const v = s.querySelector('video'); if (k === i) { s.classList.add('active'); if (v) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } } else { s.classList.remove('active'); if (v) setTimeout(() => { if (!s.classList.contains('active')) v.pause(); }, 1400); } });
     dots.forEach((d, k) => d.classList.toggle('active', k === i));
