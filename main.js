@@ -28,9 +28,9 @@
   const heroSub = $('.hero-sub');
   const SLIDE_MS = 7500;
   const copySv = [
-    { l0: 'Rent hem.', l1: 'Mer tid över.', sub: 'Hemstädning, flyttstädning, storstädning, visningsstädning och fönsterputs i hela Stockholmsområdet. Med RUT-avdrag direkt på fakturan.' },
-    { l0: 'Rena lokaler', l1: 'på era tider.', sub: 'Kontorsstädning, lokalstädning och trappstädning med tydliga rutiner och utbildad personal. För företag, fastighetsägare och bostadsrättsföreningar.' },
-    { l0: 'Flytta utan', l1: 'tunga lyft.', sub: 'Flytthjälp, kontorsflyttning, packning och magasinering. En enda kontakt som tar hand om hela flytten.' }
+    { l0: 'Professionell hemstädning', l1: 'i Stockholm', sub: 'Hemstädning, flyttstädning, storstädning, visningsstädning och fönsterputs i hela Stockholmsområdet. Med RUT-avdrag direkt på fakturan.' },
+    { l0: 'Professionell kontorsstädning', l1: 'i Stockholm', sub: 'Kontorsstädning, lokalstädning och trappstädning med tydliga rutiner och utbildad personal. För företag, fastighetsägare och bostadsrättsföreningar.' },
+    { l0: 'Professionell flytthjälp', l1: 'i Stockholm', sub: 'Flytthjälp, kontorsflyttning, packning och magasinering. En enda kontakt som tar hand om hela flytten.' }
   ];
   const copyEn = window.SCS_HERO_EN || copySv;
   let current = 0, slideStart = performance.now(), swapping = false;
