@@ -86,6 +86,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .brand-mark { width: 34px; height: 34px; flex: 0 0 auto; }
 .brand-mark path { fill: none; stroke: currentColor; stroke-width: 6; stroke-linejoin: round; }
 .brand-word { font-family: 'Jost', 'Nunito Sans', sans-serif; font-weight: 400; font-size: 1.75rem; letter-spacing: 0.42em; margin-right: -0.42em; }
+.brand-logo { height: 58px; width: auto; display: block; }
 .brand.big { margin: 0; gap: 1.2rem; }
 .brand.big .brand-mark { width: 58px; height: 58px; }
 .brand.big .brand-word { font-size: 3rem; }
@@ -335,6 +336,7 @@ body.menu-open .mobile-menu { opacity: 1; visibility: visible; transform: none; 
 .footer-top ul li a { display: inline-block; padding: 0.22rem 0; font-weight: 700; color: var(--ink); transition: color 0.25s, transform 0.3s var(--ease-out); }
 .footer-top ul li a:hover { color: var(--navy); transform: translateX(3px); }
 .footer-brand p { color: var(--ink-soft); max-width: 34ch; margin-top: 1rem; font-size: 0.95rem; }
+.footer-brand .brand-logo { height: 64px; }
 .footer-brand .brand-mark { width: 42px; height: 42px; }
 .footer-brand .brand-word { font-size: 2.1rem; }
 .footer-brand .socials { margin-top: 1.2rem; }
@@ -472,6 +474,7 @@ html.js .hero-sub { transition: opacity 0.6s var(--ease-out) 0.2s; }
   .hero-title { font-size: clamp(2rem, 9vw, 2.8rem); }
   .hero-title .line > span { white-space: normal; }
   .brand-mark { width: 28px; height: 28px; }
+  .brand-logo { height: 40px; }
   .brand-word { font-size: 1.45rem; }
   .svc-row, .svc-row.four { grid-template-columns: 1fr 1fr; gap: 0.7rem; }
   .svc-card h3 { font-size: 1.2rem; }

@@ -2,7 +2,8 @@
 window.SCS_EN = {
   "Loggan": "The logo",
   "Ett rent märke som håller överallt.": "A clean mark that works everywhere.",
-  "Ordmärket SCS med ett hus i samma linje. Fungerar lika bra på hemsidan, bilen, kläderna och fakturan, i ljust och mörkt.": "The SCS wordmark with a house in the same line. Works just as well on the website, the van, the uniforms and the invoice, in light and dark.",
+  "Taket står för hemmet, gnistan för rent och pilen för flytten. Fungerar lika bra på hemsidan, bilen, kläderna och fakturan, i ljust och mörkt.": "The roof stands for the home, the sparkle for clean and the arrow for the move. Works just as well on the website, the van, the uniforms and the invoice, in light and dark.",
+  "Symbol": "Symbol", "Taket, gnistan och pilen ensamma när utrymmet är litet.": "The roof, the sparkle and the arrow on their own when space is tight.",
   "Ljus": "Light",
   "På vitt": "On white",
   "Hemsida, brevpapper och fakturor.": "Website, stationery and invoices.",
