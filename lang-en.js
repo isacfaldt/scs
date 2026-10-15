@@ -55,7 +55,7 @@ window.SCS_EN = {
   "Våra tjänster utförs alltid med respekt för ditt hem, din arbetsplats och din tid.": "Our services are always carried out with respect for your home, your workplace and your time.",
   "Sweden City Service AB, Stockholm": "Sweden City Service AB, Stockholm",
   "Utbildad personal · Stockholm": "Trained staff · Stockholm",
-  "Arbete i rörelse": "Work in motion",
+  "Vårt arbete": "Our work",
   "Så här jobbar vi.": "This is how we work.",
   "Speglar och glas": "Mirrors and glass", "Ytor och detaljer": "Surfaces and details", "Kök och ugn": "Kitchen and oven",
   "Boka direkt online. Klart på en minut.": "Book directly online. Done in a minute.",
