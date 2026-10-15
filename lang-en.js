@@ -471,5 +471,5 @@ window.SCS_EN = {
 window.SCS_HERO_EN = [
   { l0: 'Professional home cleaning', l1: 'in Stockholm', sub: 'Home cleaning, move-out cleaning, deep cleaning, pre-viewing cleaning and window cleaning across the Stockholm area. With the RUT deduction straight off the invoice.' },
   { l0: 'Professional office cleaning', l1: 'in Stockholm', sub: 'Office cleaning, commercial cleaning and stairwell cleaning with clear routines and trained staff. For companies, property owners and housing associations.' },
-  { l0: 'Professional moving help', l1: 'in Stockholm', sub: 'Moving help, office relocation, packing and storage. One single contact who takes care of the whole move.' }
+  { l0: 'Moving help and transport', l1: 'in Stockholm', sub: 'Moving help, office relocation, packing and storage. One single contact who takes care of the whole move.' }
 ];
