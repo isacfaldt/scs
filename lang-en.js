@@ -79,7 +79,7 @@ window.SCS_EN = {
   "Vi är verksamma i innerstan och de närliggande kommunerna. Bor du utanför områdena? Hör av dig, vi löser det oftast ändå.": "We work in the city centre and the surrounding municipalities. Outside these areas? Get in touch, we can usually sort it out.",
   "Stockholms innerstad": "Stockholm city centre", "Närliggande områden": "Nearby areas",
   "Del av skissen · för Farzin": "Part of the sketch · for Farzin", "Ny logga": "New logo",
-  "Tre nya förslag på logga. Välj den du gillar bäst.": "Three new logo proposals. Pick the one you like best.",
+  "Fyra förslag på logga. Välj den du gillar bäst.": "Four logo proposals. Pick the one you like best.", "Förslag D · Farzins favorit, omritad": "Proposal D · your favourite, redrawn", "Ditt favoritförslag, ritat om i sajtens stil: kraftig kursiv SCS, ett rent svep i mint och texten \"Städservice och flytthjälp\" under. Samma marinblå som resten av sidan.": "Your favourite proposal, redrawn in the style of the site: bold italic SCS, one clean mint sweep and the words \"Cleaning and moving\" below. The same navy as the rest of the page.",
   "Alla tre är gjorda för en städfirma: rena former, marinblått och en gnista för \"nyputsat\". Förslag B används högst upp på sidan, men det går lika bra att byta. Säg vilken du gillar mest, så förfinar vi den.": "All three are made for a cleaning company: clean shapes, navy blue and a sparkle for \"freshly polished\". Proposal B is used at the top of the page, but it is just as easy to switch. Tell us which one you like most and we refine it.",
   "Förslag A": "Proposal A", "Förslag B · används i skissen": "Proposal B · used in the sketch", "Förslag C": "Proposal C",
   "Gnistan": "The Sparkle", "Huset": "The House", "Märket": "The Badge",
