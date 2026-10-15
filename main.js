@@ -26,7 +26,7 @@
   const dots = $$('.hero-dots button');
   const titleLines = $$('.hero-title .line > span');
   const heroSub = $('.hero-sub');
-  const SLIDE_MS = 7500;
+  const SLIDE_MS = 8800; /* kortare än klippen (10 s) så ingen video hinner börja om i bild */
   const copySv = [
     { l0: 'Professionell hemstädning', l1: 'i Stockholm', sub: 'Hemstädning, flyttstädning, storstädning, visningsstädning och fönsterputs i hela Stockholmsområdet. Med RUT-avdrag direkt på fakturan.' },
     { l0: 'Professionell kontorsstädning', l1: 'i Stockholm', sub: 'Kontorsstädning, lokalstädning och trappstädning med tydliga rutiner och utbildad personal. För företag, fastighetsägare och bostadsrättsföreningar.' },
@@ -48,7 +48,7 @@
   addEventListener('resize', fitTitle);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTitle);
   function playSlide(i) {
-    slides.forEach((s, k) => { const v = s.querySelector('video'); if (k === i) { s.classList.add('active'); if (v) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } } else { s.classList.remove('active'); if (v) setTimeout(() => { if (!s.classList.contains('active')) v.pause(); }, 1400); } });
+    slides.forEach((s, k) => { const v = s.querySelector('video'); if (k === i) { s.style.transform = 'scale(1)'; if (v) { try { v.currentTime = 0; } catch (e) {} const p = v.play(); if (p && p.catch) p.catch(() => {}); } s.classList.add('active'); } else { s.classList.remove('active'); if (v) setTimeout(() => { if (!s.classList.contains('active')) v.pause(); }, 1800); } });
     dots.forEach((d, k) => d.classList.toggle('active', k === i));
   }
   function goTo(i, user) {
