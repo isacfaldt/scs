@@ -260,3 +260,32 @@
 
   document.addEventListener('visibilitychange', () => { if (!document.hidden) { slideStart = performance.now(); playSlide(current); } });
 })();
+
+/* ---------- story-crossfade: mjuk överbländning när korta klipp börjar om ---------- */
+(function () {
+  const FADE = 0.6;
+  document.querySelectorAll('.story').forEach(box => {
+    const a = box.querySelector('video'); if (!a) return;
+    a.removeAttribute('loop'); a.loop = false;
+    const b = a.cloneNode(true); b.classList.add('is-out'); b.removeAttribute('autoplay'); b.setAttribute('aria-hidden', 'true');
+    box.insertBefore(b, a.nextSibling);
+    let cur = a, nxt = b, switching = false;
+    const safePlay = v => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+    function tick() {
+      const v = cur;
+      if (!switching && v.duration && v.currentTime >= v.duration - FADE) {
+        switching = true;
+        try { nxt.currentTime = 0; } catch (e) {}
+        safePlay(nxt);
+        nxt.classList.remove('is-out'); cur.classList.add('is-out');
+        setTimeout(() => { const old = cur; cur = nxt; nxt = old; old.pause(); switching = false; }, FADE * 1000 + 50);
+      }
+      requestAnimationFrame(tick);
+    }
+    a.addEventListener('ended', () => { if (!switching) { try { a.currentTime = 0; } catch (e) {} safePlay(a); } });
+    b.addEventListener('ended', () => { if (!switching) { try { b.currentTime = 0; } catch (e) {} safePlay(b); } });
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { safePlay(cur); } else { a.pause(); b.pause(); } }), { threshold: 0.1 });
+    io.observe(box);
+    requestAnimationFrame(tick);
+  });
+})();
