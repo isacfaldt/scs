@@ -267,13 +267,15 @@
   document.querySelectorAll('.story').forEach(box => {
     const a = box.querySelector('video'); if (!a) return;
     a.removeAttribute('loop'); a.loop = false;
-    const b = a.cloneNode(true); b.classList.add('is-out'); b.removeAttribute('autoplay'); b.setAttribute('aria-hidden', 'true');
+    a.preload = 'auto';
+    const b = a.cloneNode(true); b.classList.add('is-out'); b.removeAttribute('autoplay'); b.setAttribute('aria-hidden', 'true'); b.preload = 'auto';
     box.insertBefore(b, a.nextSibling);
+    try { b.load(); } catch (e) {}
     let cur = a, nxt = b, switching = false;
     const safePlay = v => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
     function tick() {
       const v = cur;
-      if (!switching && v.duration && v.currentTime >= v.duration - FADE) {
+      if (!switching && v.duration && v.currentTime >= v.duration - FADE && nxt.readyState >= 2) {
         switching = true;
         try { nxt.currentTime = 0; } catch (e) {}
         safePlay(nxt);
