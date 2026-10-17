@@ -125,7 +125,7 @@
     const fmt = (n) => Math.round(n / 10) * 10;
     const kr = (n) => fmt(n).toLocaleString('sv-SE') + ' kr';
     function estimate(svc, m2, freq) {
-      const perM2 = { 'Flyttstädning': 39, 'Storstädning': 35, 'Visningsstädning': 35 };
+      const perM2 = { 'Flyttstädning': 43, 'Storstädning': 35, 'Visningsstädning': 35 };
       if (svc === 'Hemstädning') { if (!m2) return null; const h = Math.max(2, Math.round((m2 / 35) * 2) / 2); const p = h * 279; return { val: t('ca ', 'approx. ') + kr(p), note: t(`${h} timmar à 279 kr efter RUT, per tillfälle`, `${h} hours at 279 kr after RUT, per visit`) }; }
       if (perM2[svc]) {
         if (!m2) return null;
