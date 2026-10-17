@@ -127,7 +127,14 @@
     function estimate(svc, m2, freq) {
       const perM2 = { 'Flyttstädning': 39, 'Storstädning': 35, 'Visningsstädning': 35 };
       if (svc === 'Hemstädning') { if (!m2) return null; const h = Math.max(2, Math.round((m2 / 35) * 2) / 2); const p = h * 279; return { val: t('ca ', 'approx. ') + kr(p), note: t(`${h} timmar à 279 kr efter RUT, per tillfälle`, `${h} hours at 279 kr after RUT, per visit`) }; }
-      if (perM2[svc]) { if (!m2) return null; const p = Math.max(1500, m2 * perM2[svc]); return { val: t('ca ', 'approx. ') + kr(p), note: t(`${m2} m² à ${perM2[svc]} kr efter RUT, allt material ingår`, `${m2} m² at ${perM2[svc]} kr after RUT, all supplies included`) }; }
+      if (perM2[svc]) {
+        if (!m2) return null;
+        const MIN = 1650, raw = m2 * perM2[svc], p = Math.max(MIN, raw);
+        const note = raw < MIN
+          ? t(`lägsta pris ${kr(MIN)} efter RUT (${m2} m² à ${perM2[svc]} kr), allt material ingår`, `minimum price ${kr(MIN)} after RUT (${m2} m² at ${perM2[svc]} kr), all supplies included`)
+          : t(`${m2} m² à ${perM2[svc]} kr efter RUT, allt material ingår`, `${m2} m² at ${perM2[svc]} kr after RUT, all supplies included`);
+        return { val: t('ca ', 'approx. ') + kr(p), note };
+      }
       if (svc === 'Fönsterputs') return { val: t('från 895 kr', 'from 895 kr'), note: t('per tillfälle efter RUT, beror på antal fönster', 'per visit after RUT, depends on the number of windows') };
       if (svc === 'Flytthjälp') { if (!m2) return null; const h = Math.max(3, Math.round(m2 / 15)); return { val: t('ca ', 'approx. ') + kr(h * 449), note: t(`${h} timmar, två flyttare och bil, efter RUT`, `${h} hours, two movers and a van, after RUT`) }; }
       if (svc === 'Packning') { if (!m2) return null; const h = Math.max(2, Math.round(m2 / 25)); return { val: t('ca ', 'approx. ') + kr(h * 249), note: t(`${h} timmar à 249 kr per person efter RUT`, `${h} hours at 249 kr per person after RUT`) }; }
