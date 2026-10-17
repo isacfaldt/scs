@@ -26,7 +26,7 @@
   const dots = $$('.hero-dots button');
   const titleLines = $$('.hero-title .line > span');
   const heroSub = $('.hero-sub');
-  const SLIDE_MS = 6800; /* kortare än klippen (8 s) så bytet börjar innan någon video tar slut */
+  const SLIDE_MS = 6000; /* kortare än klippen (6,4-8 s) så bytet börjar innan någon video tar slut */
   const copySv = [
     { l0: 'Professionell hemstädning', l1: 'i Stockholm', sub: 'Hemstädning, flyttstädning, storstädning, visningsstädning och fönsterputs i hela Stockholmsområdet. Med RUT-avdrag direkt på fakturan.' },
     { l0: 'Professionell kontorsstädning', l1: 'i Stockholm', sub: 'Kontorsstädning, lokalstädning och trappstädning med tydliga rutiner och utbildad personal. För företag, fastighetsägare och bostadsrättsföreningar.' },
