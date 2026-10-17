@@ -67,10 +67,13 @@
     if (progressBar) progressBar.style.transform = `scaleX(${max > 0 ? sy / max : 0})`;
     if (header) header.classList.toggle('scrolled', sy > 10);
     if (hero && sy < innerHeight * 1.3) {
-      const el = tm - slideStart; const p = Math.min(1, el / SLIDE_MS);
+      const act = slides[current]; const actV = act && act.querySelector('video');
+      /* varje bild visas så länge dess klipp räcker (minus tonings-marginal), max SLIDE_MS */
+      const vd = actV && actV.duration ? (actV.duration - 1.0) * 1000 : SLIDE_MS; const limit = Math.max(2500, Math.min(SLIDE_MS, vd));
+      const el = tm - slideStart; const p = Math.min(1, el / limit);
       dots.forEach((d, k) => { const i = d.querySelector('i'); if (i) i.style.transform = `scaleX(${k === current ? p : (k < current ? 1 : 0)})`; });
-      const act = slides[current]; if (act) act.style.transform = `scale(${1 + 0.04 * (el / SLIDE_MS)})`;
-      if (hero.classList.contains('ready') && el >= SLIDE_MS && !swapping && !document.hidden) goTo((current + 1) % slides.length);
+      if (act) act.style.transform = `scale(${1 + 0.04 * (el / limit)})`;
+      if (hero.classList.contains('ready') && el >= limit && !swapping && !document.hidden) goTo((current + 1) % slides.length);
     }
     requestAnimationFrame(frame);
   }
