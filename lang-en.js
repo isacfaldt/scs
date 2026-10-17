@@ -2,8 +2,8 @@
 window.SCS_EN = {
   "Loggan": "The logo",
   "Ett rent märke som håller överallt.": "A clean mark that works everywhere.",
-  "Husportalen i ett enda streck och SCS i luftig spärrning. Fungerar lika bra på hemsidan, bilen, kläderna och fakturan, i ljust och mörkt.": "The house portal in a single stroke and SCS in airy letter spacing. Works just as well on the website, the van, the uniforms and the invoice, in light and dark.",
-  "Symbol": "Symbol", "Portalen ensam när utrymmet är litet.": "The portal on its own when space is tight.",
+  "Din egen stil, renritad i vektor: SCS med de två bågarna och texten under, i sajtens marinblå. Skarp i alla storlekar, på hemsidan, bilen, kläderna och fakturan.": "Your own style, redrawn in vector: SCS with the two arcs and the text below, in the site's navy. Sharp at every size, on the website, the van, the uniforms and the invoice.",
+  "Symbol": "Symbol", "Kompakt version utan text, för header och små ytor.": "Compact version without text, for the header and small spaces.",
   "Ljus": "Light",
   "På vitt": "On white",
   "Hemsida, brevpapper och fakturor.": "Website, stationery and invoices.",

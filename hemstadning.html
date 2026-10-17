@@ -11,10 +11,10 @@
   <meta property="og:image" content="media/about.jpg">
   <meta name="theme-color" content="#0B1456">
   <link rel="canonical" href="https://www.swedencityservice.se/hemstadning.html">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B1456'/%3E%3Cpath d='M18 50 V30 L32 18 L46 30 V50' fill='none' stroke='%23fff' stroke-width='5' stroke-linejoin='miter'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B1456'/%3E%3Cpath d='M14 30 C 24 12, 48 10, 56 26 C 60 32, 58 40, 54 44 C 56 38, 54 32, 50 27 C 42 16, 26 18, 14 30 Z' fill='%23fff'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Arial Black,Arial' font-weight='900' font-style='italic' font-size='26' fill='%23fff'%3ESCS%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,800&family=Jost:wght@400;500&family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,800&family=Exo+2:ital,wght@1,900&family=Montserrat:wght@800&family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   </head>
 <body>
@@ -47,26 +47,20 @@
       <text x="150" y="150" text-anchor="middle" font-family="Nunito Sans, sans-serif" font-weight="900" font-size="15" letter-spacing="3.2" fill="currentColor">FLYTTHJÄLP</text>
       <path d="M34 145 H62 M238 145 H266" stroke="#5BC8A0" stroke-width="2.5" stroke-linecap="round"/>
     </symbol>
-    <!-- Loggan: husportalen (ett streck, öppen nertill) + SCS i Jost, samma recept som VALV -->
-    <symbol id="logo-mark" viewBox="0 0 64 64">
-      <path d="M10 58 V28 L32 10 L54 28 V58" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="miter"/>
+    <!-- Loggan: Farzins stil (SCS lutande, två bågar, tagline) i marinblått. Accent via --logo-accent -->
+    <symbol id="logo-arc-top" viewBox="0 0 600 360"><path d="M128 178 C 218 62, 452 34, 556 164 C 586 204, 580 254, 548 288 C 568 246, 552 196, 520 162 C 440 84, 252 92, 128 178 Z"/></symbol>
+    <symbol id="logo-arc-bot" viewBox="0 0 600 360"><path d="M64 258 C 46 326, 262 360, 480 320 C 300 350, 134 336, 94 290 C 86 278, 74 268, 64 258 Z"/></symbol>
+    <symbol id="logo-a1" viewBox="40 30 530 320">
+      <use href="#logo-arc-top" fill="currentColor"/><use href="#logo-arc-bot" fill="var(--logo-accent, #5B6BB5)"/>
+      <text x="300" y="236" text-anchor="middle" font-family="'Exo 2', sans-serif" font-style="italic" font-weight="900" font-size="168" letter-spacing="-2"><tspan fill="currentColor">S</tspan><tspan fill="var(--logo-accent, #5B6BB5)">C</tspan><tspan fill="currentColor">S</tspan></text>
+      <text x="300" y="268" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="800" font-size="26" letter-spacing="2.2" fill="currentColor">STÄDSERVICE &amp; FLYTTHJÄLP</text>
     </symbol>
-    <symbol id="logo-a1" viewBox="0 0 360 230">
-      <use href="#logo-mark" x="148" y="8" width="64" height="64"/>
-      <text fill="currentColor" x="193" y="152" text-anchor="middle" font-family="Jost, sans-serif" font-weight="400" font-size="64" letter-spacing="27">SCS</text>
-      <text fill="currentColor" x="186" y="196" text-anchor="middle" font-family="Jost, sans-serif" font-weight="400" font-size="13.5" letter-spacing="4.6">STÄDSERVICE &amp; FLYTTHJÄLP</text>
+    <symbol id="logo-a1-compact" viewBox="60 40 510 260">
+      <use href="#logo-arc-top" fill="currentColor"/>
+      <text x="300" y="236" text-anchor="middle" font-family="'Exo 2', sans-serif" font-style="italic" font-weight="900" font-size="168" letter-spacing="-2"><tspan fill="currentColor">S</tspan><tspan fill="var(--logo-accent, #5B6BB5)">C</tspan><tspan fill="currentColor">S</tspan></text>
     </symbol>
-    <symbol id="logo-a1-compact" viewBox="0 0 250 64">
-      <use href="#logo-mark" x="0" y="0" width="64" height="64"/>
-      <text fill="currentColor" x="92" y="47" font-family="Jost, sans-serif" font-weight="400" font-size="40" letter-spacing="17">SCS</text>
-    </symbol>
-    <symbol id="logo-a1-wide" viewBox="0 0 470 64">
-      <use href="#logo-mark" x="0" y="0" width="64" height="64"/>
-      <text fill="currentColor" x="92" y="43" font-family="Jost, sans-serif" font-weight="400" font-size="40" letter-spacing="17">SCS</text>
-      <path d="M262 12 V52" stroke="currentColor" stroke-width="1" opacity=".35"/>
-      <text fill="currentColor" x="288" y="28" font-family="Jost, sans-serif" font-weight="400" font-size="12.5" letter-spacing="3.4">STÄDSERVICE</text>
-      <text fill="currentColor" x="288" y="50" font-family="Jost, sans-serif" font-weight="400" font-size="12.5" letter-spacing="3.4">&amp; FLYTTHJÄLP</text>
-    </symbol>
+    <symbol id="logo-a1-wide" viewBox="40 30 530 320"><use href="#logo-a1" width="600" height="360" x="0" y="0"/></symbol>
+    <symbol id="logo-mark" viewBox="60 40 510 260"><use href="#logo-a1-compact" width="600" height="360"/></symbol>
   </defs>
 </svg>
 
@@ -76,7 +70,7 @@
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="index.html" aria-label="Sweden City Service, till startsidan">
-      <svg class="brand-logo compact" viewBox="0 0 250 64" aria-hidden="true"><use href="#logo-a1-compact"/></svg>
+      <svg class="brand-logo compact" viewBox="60 40 510 260" aria-hidden="true"><use href="#logo-a1-compact"/></svg>
     </a>
     <nav aria-label="Huvudmeny">
       <ul class="nav">
@@ -220,7 +214,7 @@
     </div>
     <div class="footer-top">
       <div class="footer-brand">
-        <a class="brand" href="index.html" aria-label="Sweden City Service"><svg class="brand-logo" viewBox="0 0 470 64" aria-hidden="true"><use href="#logo-a1-wide"/></svg></a>
+        <a class="brand" href="index.html" aria-label="Sweden City Service"><svg class="brand-logo" viewBox="40 30 530 320" aria-hidden="true"><use href="#logo-a1"/></svg></a>
         <p>Städning och flytt för hem, företag och bostadsrättsföreningar i hela Stockholmsområdet.</p>
         <div class="socials">
           <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg><use href="#i-linkedin"/></svg></a>
