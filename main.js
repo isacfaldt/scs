@@ -127,11 +127,11 @@
     const fmt = (n) => Math.round(n / 10) * 10;
     const kr = (n) => fmt(n).toLocaleString('sv-SE') + ' kr';
     function estimate(svc, m2, freq) {
-      const perM2 = { 'Flyttstädning': 43, 'Storstädning': 35, 'Visningsstädning': 39 };
+      const perM2 = { 'Flyttstädning': 45, 'Storstädning': 35, 'Visningsstädning': 39 };
       if (svc === 'Hemstädning') { if (!m2) return null; const h = Math.max(2, Math.round((m2 / 35) * 2) / 2); const p = h * 279; return { val: t('ca ', 'approx. ') + kr(p), note: t(`${h} timmar à 279 kr efter RUT, per tillfälle`, `${h} hours at 279 kr after RUT, per visit`) }; }
       if (perM2[svc]) {
         if (!m2) return null;
-        const MIN = 1650, raw = m2 * perM2[svc], p = Math.max(MIN, raw);
+        const MIN = 1650, raw = Math.round(m2 * perM2[svc] / 50) * 50, p = Math.max(MIN, raw);
         const note = raw < MIN
           ? t(`lägsta pris ${kr(MIN)} efter RUT (${m2} m² à ${perM2[svc]} kr), allt material ingår`, `minimum price ${kr(MIN)} after RUT (${m2} m² at ${perM2[svc]} kr), all supplies included`)
           : t(`${m2} m² à ${perM2[svc]} kr efter RUT, allt material ingår`, `${m2} m² at ${perM2[svc]} kr after RUT, all supplies included`);
