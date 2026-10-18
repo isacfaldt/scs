@@ -500,3 +500,7 @@ html.js .hero-sub { transition: opacity 0.6s var(--ease-out) 0.2s; }
 @media (prefers-reduced-motion: reduce) {
   html.js .reveal { transition-duration: 0.01s !important; transition-delay: 0s !important; }
 }
+
+/* Företagsnamnet synligt (Farzins önskemål) */
+.hero-company { display: block; font: 700 0.72rem/1 var(--font-body); letter-spacing: 0.18em; text-transform: uppercase; color: var(--navy); margin-bottom: 0.9rem; opacity: .85; }
+.footer-brand .footer-company { font: 800 1.05rem/1.2 var(--font-body); letter-spacing: 0.06em; text-transform: uppercase; color: var(--navy); margin-top: 0.4rem; max-width: none; }
