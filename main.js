@@ -26,7 +26,7 @@
   const dots = $$('.hero-dots button');
   const titleLines = $$('.hero-title .line > span');
   const heroSub = $('.hero-sub');
-  const SLIDE_MS = 6000; /* kortare än klippen (6,4-8 s) så bytet börjar innan någon video tar slut */
+  const SLIDE_MS = 13000; /* klippen loopar sömlöst (makeLoop), så texten hinner läsas */
   const copySv = [
     { l0: 'Professionell hemstädning', l1: 'i Stockholm', sub: 'Hemstädning, flyttstädning, storstädning, visningsstädning och fönsterputs i hela Stockholmsområdet. Med RUT-avdrag direkt på fakturan.' },
     { l0: 'Regelbunden hemstädning', l1: 'i Stockholm', sub: 'Varje vecka, varannan vecka eller när det passar dig. Samma städare varje gång, tydlig checklista och RUT-avdrag direkt på fakturan.' },
@@ -50,7 +50,7 @@
   addEventListener('resize', fitTitle);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTitle);
   function playSlide(i) {
-    slides.forEach((s, k) => { const v = s.querySelector('video'); if (k === i) { s.style.transform = 'scale(1)'; if (v) { try { v.currentTime = 0; } catch (e) {} const p = v.play(); if (p && p.catch) p.catch(() => {}); } s.classList.add('active'); } else { s.classList.remove('active'); if (v) setTimeout(() => { if (!s.classList.contains('active')) v.pause(); }, 1800); } });
+    slides.forEach((s, k) => { const v = s.querySelector('video'); if (k === i) { s.style.transform = 'scale(1)'; if (s._loop) s._loop.restart(); else if (v) { try { v.currentTime = 0; } catch (e) {} const p = v.play(); if (p && p.catch) p.catch(() => {}); } s.classList.add('active'); } else { s.classList.remove('active'); setTimeout(() => { if (!s.classList.contains('active')) { if (s._loop) s._loop.stop(); else if (v) v.pause(); } }, 1800); } });
     dots.forEach((d, k) => d.classList.toggle('active', k === i));
   }
   function goTo(i, user) {
@@ -71,7 +71,7 @@
     if (hero && sy < innerHeight * 1.3) {
       const act = slides[current]; const actV = act && act.querySelector('video');
       /* varje bild visas så länge dess klipp räcker (minus tonings-marginal), max SLIDE_MS */
-      const vd = actV && actV.duration ? (actV.duration - 1.0) * 1000 : SLIDE_MS; const limit = Math.max(2500, Math.min(SLIDE_MS, vd));
+      const limit = SLIDE_MS;
       const el = tm - slideStart; const p = Math.min(1, el / limit);
       dots.forEach((d, k) => { const i = d.querySelector('i'); if (i) i.style.transform = `scaleX(${k === current ? p : (k < current ? 1 : 0)})`; });
       if (act) act.style.transform = `scale(${1 + 0.04 * (el / limit)})`;
@@ -281,33 +281,42 @@
   document.addEventListener('visibilitychange', () => { if (!document.hidden) { slideStart = performance.now(); playSlide(current); } });
 })();
 
-/* ---------- story-crossfade: mjuk överbländning när korta klipp börjar om ---------- */
-(function () {
+/* ---------- seamless loop: mjuk överbländning när korta klipp börjar om (stories + hero) ---------- */
+function makeLoop(box) {
   const FADE = 0.6;
-  document.querySelectorAll('.story').forEach(box => {
-    const a = box.querySelector('video'); if (!a) return;
-    a.removeAttribute('loop'); a.loop = false;
-    a.preload = 'auto';
-    const b = a.cloneNode(true); b.classList.add('is-out'); b.removeAttribute('autoplay'); b.setAttribute('aria-hidden', 'true'); b.preload = 'auto';
-    box.insertBefore(b, a.nextSibling);
-    try { b.load(); } catch (e) {}
-    let cur = a, nxt = b, switching = false;
-    const safePlay = v => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
-    function tick() {
-      const v = cur;
-      if (!switching && v.duration && v.currentTime >= v.duration - FADE && nxt.readyState >= 2) {
-        switching = true;
-        try { nxt.currentTime = 0; } catch (e) {}
-        safePlay(nxt);
-        nxt.classList.remove('is-out'); cur.classList.add('is-out');
-        setTimeout(() => { const old = cur; cur = nxt; nxt = old; old.pause(); switching = false; }, FADE * 1000 + 50);
-      }
-      requestAnimationFrame(tick);
+  const a = box.querySelector('video'); if (!a) return null;
+  a.removeAttribute('loop'); a.loop = false; a.preload = 'auto';
+  const b = a.cloneNode(true); b.classList.add('is-out'); b.removeAttribute('autoplay'); b.setAttribute('aria-hidden', 'true'); b.preload = 'auto';
+  box.insertBefore(b, a.nextSibling);
+  try { b.load(); } catch (e) {}
+  let cur = a, nxt = b, switching = false, running = false;
+  const safePlay = v => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+  function check() {
+    if (!running) return;
+    const v = cur;
+    if (!switching && v.duration && v.currentTime >= v.duration - FADE && nxt.readyState >= 2) {
+      switching = true;
+      try { nxt.currentTime = 0; } catch (e) {}
+      safePlay(nxt);
+      nxt.classList.remove('is-out'); cur.classList.add('is-out');
+      setTimeout(() => { const old = cur; cur = nxt; nxt = old; old.pause(); switching = false; }, FADE * 1000 + 50);
     }
-    a.addEventListener('ended', () => { if (!switching) { try { a.currentTime = 0; } catch (e) {} safePlay(a); } });
-    b.addEventListener('ended', () => { if (!switching) { try { b.currentTime = 0; } catch (e) {} safePlay(b); } });
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { safePlay(cur); } else { a.pause(); b.pause(); } }), { threshold: 0.1 });
-    io.observe(box);
-    requestAnimationFrame(tick);
-  });
-})();
+  }
+  function tick() { check(); requestAnimationFrame(tick); }
+  /* timeupdate som reserv: rAF pausas i bakgrundsflikar, medieevent fortsätter */
+  [a, b].forEach(v => v.addEventListener('timeupdate', check));
+  [a, b].forEach(v => v.addEventListener('ended', () => { if (running && !switching && v === cur) { try { v.currentTime = 0; } catch (e) {} safePlay(v); } }));
+  requestAnimationFrame(tick);
+  const ctl = {
+    start() { running = true; safePlay(cur); },
+    restart() { running = true; switching = false; b.classList.add('is-out'); a.classList.remove('is-out'); b.pause(); cur = a; nxt = b; try { a.currentTime = 0; } catch (e) {} safePlay(a); },
+    stop() { running = false; a.pause(); b.pause(); }
+  };
+  box._loop = ctl; return ctl;
+}
+document.querySelectorAll('.story').forEach(box => {
+  const ctl = makeLoop(box); if (!ctl) return;
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) ctl.start(); else ctl.stop(); }), { threshold: 0.1 });
+  io.observe(box);
+});
+document.querySelectorAll('.hero-media .slide').forEach(box => { const ctl = makeLoop(box); if (ctl && box.classList.contains('active')) ctl.start(); });

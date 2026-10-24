@@ -55,6 +55,7 @@ window.SCS_EN = {
   "Kostnadsfri offert och RUT-avdrag direkt på fakturan": "Free quote and RUT deduction straight off the invoice",
   "Våra tjänster utförs alltid med respekt för ditt hem, din arbetsplats och din tid.": "Our services are always carried out with respect for your home, your workplace and your time.",
   "Sweden City Service AB, Stockholm": "Sweden City Service AB, Stockholm",
+  "Städservice & flytthjälp": "Cleaning & moving services",
   "Utbildad personal · Stockholm": "Trained staff · Stockholm",
   "Vårt arbete": "Our work",
   "Så här jobbar vi.": "This is how we work.",

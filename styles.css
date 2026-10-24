@@ -135,8 +135,8 @@ body.menu-open .mobile-menu { opacity: 1; visibility: visible; transform: none; 
 .hero-media video { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .hero-media .slide::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, rgba(14, 22, 80, 0.58) 0%, rgba(14, 22, 80, 0.32) 45%, rgba(14, 22, 80, 0.16) 100%); }
 .hero-media video { filter: brightness(0.9) contrast(1.04); }
-.hero-inner { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 560px) 1fr; align-items: center; min-height: inherit; padding: clamp(2rem, 5vw, 4rem) 0; }
-.hero-card { background: #fff; border-radius: var(--radius); padding: clamp(1.6rem, 3vw, 2.6rem); box-shadow: var(--shadow-lg); }
+.hero-inner { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 470px) 1fr; align-items: center; min-height: inherit; padding: clamp(2rem, 5vw, 4rem) 0; }
+.hero-card { background: #fff; border-radius: var(--radius); padding: clamp(1.4rem, 2.4vw, 2rem); box-shadow: var(--shadow-lg); }
 .badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.8rem; border-radius: 200px; background: var(--mint); color: var(--navy); font-size: 0.78rem; font-weight: 900; margin-bottom: 1rem; }
 .badge::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--navy); }
 .hero-title { font-size: clamp(1.9rem, 3.1vw, 2.6rem); min-height: 2em; }
@@ -436,8 +436,8 @@ body.modal-open { overflow: hidden; }
 html.js .reveal { opacity: 0; transform: translateY(24px); }
 html.js .reveal.in { opacity: 1; transform: none; transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out); transition-delay: calc(var(--i, 0) * 80ms); }
 html.js .hero-title .line > span { transform: translateY(110%); transition: transform 0.9s var(--ease-out); }
-html.js .hero.ready .hero-title .line > span { transform: none; }
-html.js .hero.swapping .hero-title .line > span { transform: translateY(110%); transition-duration: 0.45s; }
+html.js .hero.ready .hero-title .line > span { transform: none; opacity: 1; transition: transform 0.9s var(--ease-out), opacity 0.7s var(--ease-out); }
+html.js .hero.swapping .hero-title .line > span { transform: none; opacity: 0; transition: opacity 0.35s; }
 html.js .hero.swapping .hero-sub { opacity: 0; transition: opacity 0.3s; }
 html.js .hero-sub { transition: opacity 0.6s var(--ease-out) 0.2s; }
 
@@ -505,3 +505,11 @@ html.js .hero-sub { transition: opacity 0.6s var(--ease-out) 0.2s; }
 /* Företagsnamnet synligt (Farzins önskemål) */
 .hero-company { display: block; font: 700 0.72rem/1 var(--font-body); letter-spacing: 0.18em; text-transform: uppercase; color: var(--navy); margin-bottom: 0.9rem; opacity: .85; }
 .footer-brand .footer-company { font: 800 1.05rem/1.2 var(--font-body); letter-spacing: 0.06em; text-transform: uppercase; color: var(--navy); margin-top: 0.4rem; max-width: none; }
+
+/* hero: brandblock överst i kortet (Farzin: tjänsterna ska synas direkt) */
+.hero-brand { display: flex; flex-direction: column; gap: 0.3rem; margin-bottom: 0.9rem; }
+.hero-brand .hero-company { margin-bottom: 0; }
+.hero-services { font: 800 clamp(1.05rem, 1.4vw, 1.25rem)/1.1 var(--font-display); text-transform: uppercase; letter-spacing: 0.04em; color: var(--navy); }
+/* hero: sömlös loop av korta klipp (två staplade videor per bild) */
+.hero-media .slide video { position: absolute; inset: 0; transition: opacity 0.6s linear; }
+.hero-media .slide video.is-out { opacity: 0; }
