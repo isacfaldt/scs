@@ -133,7 +133,7 @@
         if (m2 <= 30) return { val: '2 190 kr', note: t('fast pris upp till 30 m² efter RUT, allt material ingår', 'fixed price up to 30 m² after RUT, all supplies included') };
         if (m2 <= 50) return { val: '2 490 kr', note: t('fast pris 31 till 50 m² efter RUT, allt material ingår', 'fixed price 31 to 50 m² after RUT, all supplies included') };
         const p = 2490 + (m2 - 50) * 41;
-        return { val: t('ca ', 'approx. ') + kr(p), note: t(`2 490 kr plus 41 kr per m² över 50 m², efter RUT, allt material ingår`, `2,490 kr plus 41 kr per m² above 50 m², after RUT, all supplies included`) };
+        return { val: p.toLocaleString('sv-SE') + ' kr', note: t(`2 490 kr plus 41 kr per m² över 50 m², efter RUT, allt material ingår`, `2,490 kr plus 41 kr per m² above 50 m², after RUT, all supplies included`) };
       }
       const perM2 = { 'Storstädning': 35, 'Visningsstädning': 39 };
       if (svc === 'Hemstädning') { if (!m2) return null; const h = Math.max(2, Math.round((m2 / 35) * 2) / 2); const p = h * 279; return { val: t('ca ', 'approx. ') + kr(p), note: t(`${h} timmar à 279 kr efter RUT, per tillfälle`, `${h} hours at 279 kr after RUT, per visit`) }; }
