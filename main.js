@@ -127,7 +127,18 @@
     const fmt = (n) => Math.round(n / 10) * 10;
     const kr = (n) => fmt(n).toLocaleString('sv-SE') + ' kr';
     function estimate(svc, m2, freq) {
-      const perM2 = { 'Flyttstädning': 45, 'Storstädning': 35, 'Visningsstädning': 39 };
+      /* flyttstädning: fasta prisklasser (Freska-modellen), efter RUT, fönsterputs ingår */
+      if (svc === 'Flyttstädning') {
+        if (!m2) return null;
+        const tiers = [[30, 2550, 0], [50, 2775, 0], [65, 0, 67], [80, 0, 62], [100, 0, 54], [120, 0, 47], [150, 0, 44], [170, 0, 41], [200, 0, 40], [Infinity, 0, 39]];
+        const tr = tiers.find(x => m2 <= x[0]);
+        const p = tr[1] || Math.round(m2 * tr[2] / 5) * 5;
+        const note = tr[1]
+          ? t(`fast pris upp till ${tr[0]} m² efter RUT, fönsterputs och material ingår`, `fixed price up to ${tr[0]} m² after RUT, window cleaning and supplies included`)
+          : t(`${m2} m² à ${tr[2]} kr efter RUT, fönsterputs och material ingår`, `${m2} m² at ${tr[2]} kr after RUT, window cleaning and supplies included`);
+        return { val: p.toLocaleString('sv-SE') + ' kr', note };
+      }
+      const perM2 = { 'Storstädning': 35, 'Visningsstädning': 39 };
       if (svc === 'Hemstädning') { if (!m2) return null; const h = Math.max(2, Math.round((m2 / 35) * 2) / 2); const p = h * 279; return { val: t('ca ', 'approx. ') + kr(p), note: t(`${h} timmar à 279 kr efter RUT, per tillfälle`, `${h} hours at 279 kr after RUT, per visit`) }; }
       if (perM2[svc]) {
         if (!m2) return null;
