@@ -127,13 +127,13 @@
     const fmt = (n) => Math.round(n / 10) * 10;
     const kr = (n) => fmt(n).toLocaleString('sv-SE') + ' kr';
     function estimate(svc, m2, freq) {
-      /* flyttstädning: fasta priser upp till 50 m² (Farzin 2026-10-24), därefter 35 kr/m² men aldrig under 2 490 kr */
+      /* flyttstädning: fasta priser upp till 50 m² (Farzin 2026-10-24), därefter 41 kr/m² */
       if (svc === 'Flyttstädning') {
         if (!m2) return null;
-        if (m2 <= 30) return { val: '1 940 kr', note: t('fast pris upp till 30 m² efter RUT, allt material ingår', 'fixed price up to 30 m² after RUT, all supplies included') };
+        if (m2 <= 30) return { val: '2 190 kr', note: t('fast pris upp till 30 m² efter RUT, allt material ingår', 'fixed price up to 30 m² after RUT, all supplies included') };
         if (m2 <= 50) return { val: '2 490 kr', note: t('fast pris 31 till 50 m² efter RUT, allt material ingår', 'fixed price 31 to 50 m² after RUT, all supplies included') };
-        const p = Math.max(2490, Math.round(m2 * 35 / 50) * 50);
-        return { val: t('ca ', 'approx. ') + kr(p), note: t(`${m2} m² à 35 kr efter RUT, lägst 2 490 kr, allt material ingår`, `${m2} m² at 35 kr after RUT, minimum 2,490 kr, all supplies included`) };
+        const p = Math.max(2490, Math.round(m2 * 41 / 10) * 10);
+        return { val: t('ca ', 'approx. ') + kr(p), note: t(`${m2} m² à 41 kr efter RUT, allt material ingår`, `${m2} m² at 41 kr after RUT, all supplies included`) };
       }
       const perM2 = { 'Storstädning': 35, 'Visningsstädning': 39 };
       if (svc === 'Hemstädning') { if (!m2) return null; const h = Math.max(2, Math.round((m2 / 35) * 2) / 2); const p = h * 279; return { val: t('ca ', 'approx. ') + kr(p), note: t(`${h} timmar à 279 kr efter RUT, per tillfälle`, `${h} hours at 279 kr after RUT, per visit`) }; }
