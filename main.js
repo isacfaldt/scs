@@ -136,7 +136,7 @@
         return { val: p.toLocaleString('sv-SE') + ' kr', note: t(`2 490 kr plus 41 kr per m² över 50 m², efter RUT, allt material ingår`, `2,490 kr plus 41 kr per m² above 50 m², after RUT, all supplies included`) };
       }
       const perM2 = { 'Storstädning': 35, 'Visningsstädning': 39 };
-      if (svc === 'Hemstädning') { if (!m2) return null; const h = Math.max(2, Math.round((m2 / 35) * 2) / 2); const p = h * 279; return { val: t('ca ', 'approx. ') + kr(p), note: t(`${h} timmar à 279 kr efter RUT, per tillfälle`, `${h} hours at 279 kr after RUT, per visit`) }; }
+      if (svc === 'Hemstädning') { if (!m2) return null; const h = m2 <= 30 ? 3 : m2 <= 50 ? 4 : Math.max(4, Math.round((m2 / 35) * 2) / 2); const p = h * 289; return { val: t('ca ', 'approx. ') + kr(p), note: t(`${h} timmar à 289 kr efter RUT, per tillfälle`, `${h} hours at 289 kr after RUT, per visit`) }; }
       if (perM2[svc]) {
         if (!m2) return null;
         const MIN = 1650, raw = Math.round(m2 * perM2[svc] / 50) * 50, p = Math.max(MIN, raw);
