@@ -128,6 +128,7 @@
     const fmt = (n) => Math.round(n / 10) * 10;
     const kr = (n) => fmt(n).toLocaleString('sv-SE') + ' kr';
     function estimate(svc, m2, freq) {
+      if (svc === 'Hemstädning') { if (!m2) return null; const h = m2 <= 30 ? 3 : m2 <= 50 ? 4 : 4 + Math.ceil((m2 - 50) / 10) * 0.5; const p = h * 289; return { val: t('ca ', 'approx. ') + kr(p), note: t(`${h} timmar à 289 kr efter RUT, per tillfälle`, `${h} hours at 289 kr after RUT, per visit`) }; }
       /* flyttstädning: fasta priser upp till 50 m² (Farzin 2026-10-24), därefter 2 490 kr + 41 kr per m² över 50 */
       if (svc === 'Flyttstädning') {
         if (!m2) return null;
