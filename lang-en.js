@@ -479,9 +479,9 @@ window.SCS_EN = {
   "Professionell flytthjälp i Stockholm": "Professional moving help in Stockholm"
 };
 window.SCS_HERO_EN = [
-  { l0: 'Professional home cleaning', l1: 'in Stockholm', sub: 'Home cleaning, move-out cleaning, deep cleaning, pre-viewing cleaning and window cleaning across the Stockholm area. With the RUT deduction straight off the invoice.' },
-  { l0: 'Regular home cleaning', l1: 'in Stockholm', sub: 'Every week, every other week or whenever it suits you. The same cleaner every time, a clear checklist and the RUT deduction straight off the invoice.' },
-  { l0: 'Professional office cleaning', l1: 'in Stockholm', sub: 'Office cleaning, commercial cleaning and stairwell cleaning with clear routines and trained staff. For companies, property owners and housing associations.' },
+  { l0: 'Cleaning and moving services', l1: 'across Stockholm', sub: 'Home cleaning, move-out cleaning, deep cleaning, pre-viewing cleaning and window cleaning across the Stockholm area. With the RUT deduction straight off the invoice.' },
+  { l0: 'Safe, reliable and on time', l1: 'home cleaning', sub: 'Every week, every other week or whenever it suits you. The same cleaner every time, a clear checklist and the RUT deduction straight off the invoice.' },
+  { l0: 'Cleaning with a focus', l1: 'on quality', sub: 'Office cleaning, commercial cleaning and stairwell cleaning with clear routines and trained staff. For companies, property owners and housing associations.' },
   { l0: 'Move-out cleaning with a guarantee', l1: 'across Stockholm', sub: 'Thorough cleaning of the whole home before handover, with a clear checklist and a fixed price. If anything is flagged at the inspection we fix it free of charge.' },
   { l0: 'Moving help for private customers', l1: 'and businesses in Stockholm', sub: 'Moving help, office relocation, packing and storage. One single contact who takes care of the whole move.' }
 ];
