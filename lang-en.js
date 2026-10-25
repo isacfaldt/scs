@@ -2,7 +2,7 @@
 window.SCS_EN = {
   "Loggan": "The logo",
   "Ett rent märke som håller överallt.": "A clean mark that works everywhere.",
-  "Din egen stil, renritad i vektor: SCS med de två bågarna och texten under, i sajtens marinblå. Skarp i alla storlekar, på hemsidan, bilen, kläderna och fakturan.": "Your own style, redrawn in vector: SCS with the two arcs and the text below, in the site's navy. Sharp at every size, on the website, the van, the uniforms and the invoice.",
+  "Din egen logga, renritad i vektor: SCS med svepet och texten under, i sajtens marinblå. Skarp i alla storlekar, på hemsidan, bilen, kläderna och fakturan.": "Your own style, redrawn in vector: SCS with the two arcs and the text below, in the site's navy. Sharp at every size, on the website, the van, the uniforms and the invoice.",
   "Symbol": "Symbol", "Kompakt version utan text, för header och små ytor.": "Compact version without text, for the header and small spaces.",
   "Ljus": "Light",
   "På vitt": "On white",
