@@ -492,7 +492,7 @@ window.SCS_EN = {
 window.SCS_HERO_EN = [
   { l0: 'Professional cleaning', l1: 'for homes and businesses', sub: 'Home cleaning, move-out cleaning, deep cleaning, pre-viewing cleaning and window cleaning across the Stockholm area. With the RUT deduction straight off the invoice.' },
   { l0: 'Cleaning with a focus', l1: 'on quality', sub: 'Every week, every other week or whenever it suits you. The same cleaner every time, a clear checklist and the RUT deduction straight off the invoice.' },
-  { l0: 'Cleaning and moving services', l1: 'for businesses', sub: 'Office cleaning, commercial cleaning and stairwell cleaning with clear routines and trained staff. For companies, property owners and housing associations.' },
+  { l0: 'Professional office cleaning', l1: 'in Stockholm', sub: 'Office cleaning, commercial cleaning and stairwell cleaning with clear routines and trained staff. For companies, property owners and housing associations.' },
   { l0: 'Satisfaction guarantee', l1: 'on every job', sub: 'Thorough cleaning of the whole home before handover, with a clear checklist and a fixed price. If anything is flagged at the inspection we fix it free of charge.' },
   { l0: 'Safe, reliable and on time', l1: 'moving help', sub: 'Moving help, office relocation, packing and storage. One single contact who takes care of the whole move.' }
 ];

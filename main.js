@@ -30,7 +30,7 @@
   const copySv = [
     { l0: 'Professionell städning', l1: 'för hem och företag', sub: 'Hemstädning, flyttstädning, storstädning, visningsstädning och fönsterputs i hela Stockholmsområdet. Med RUT-avdrag direkt på fakturan.' },
     { l0: 'Städning med fokus', l1: 'på kvalitet', sub: 'Varje vecka, varannan vecka eller när det passar dig. Samma städare varje gång, tydlig checklista och RUT-avdrag direkt på fakturan.' },
-    { l0: 'Städservice och flytthjälp', l1: 'för företag', sub: 'Kontorsstädning, lokalstädning och trappstädning med tydliga rutiner och utbildad personal. För företag, fastighetsägare och bostadsrättsföreningar.' },
+    { l0: 'Professionell kontorsstädning', l1: 'i Stockholm', sub: 'Kontorsstädning, lokalstädning och trappstädning med tydliga rutiner och utbildad personal. För företag, fastighetsägare och bostadsrättsföreningar.' },
     { l0: 'Nöjd kund-garanti', l1: 'på varje uppdrag', sub: 'Grundlig städning av hela bostaden inför överlämning, med tydlig checklista och fast pris. Blir något anmärkt vid besiktningen åtgärdar vi det utan kostnad.' },
     { l0: 'Trygg, säker och punktlig', l1: 'flytthjälp', sub: 'Flytthjälp, kontorsflyttning, packning och magasinering. En enda kontakt som tar hand om hela flytten.' }
   ];
