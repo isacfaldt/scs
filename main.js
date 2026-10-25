@@ -71,7 +71,8 @@
     if (hero && sy < innerHeight * 1.3) {
       const act = slides[current]; const actV = act && act.querySelector('video');
       /* varje bild visas så länge dess klipp räcker (minus tonings-marginal), max SLIDE_MS */
-      const limit = SLIDE_MS;
+      /* data-loops="2": bilden visas tills klippet spelats två gånger, annars SLIDE_MS */
+      const loops = act && +act.dataset.loops; const limit = (loops && actV && actV.duration) ? Math.max(4000, actV.duration * loops * 1000 - 400) : SLIDE_MS;
       const el = tm - slideStart; const p = Math.min(1, el / limit);
       dots.forEach((d, k) => { const i = d.querySelector('i'); if (i) i.style.transform = `scaleX(${k === current ? p : (k < current ? 1 : 0)})`; });
       if (act) act.style.transform = `scale(${1 + 0.04 * (el / limit)})`;
