@@ -26,7 +26,7 @@
   --space: clamp(4rem, 7.5vw, 7rem);
   --gutter: clamp(1.25rem, 4vw, 3.5rem);
   --maxw: 1240px;
-  --header-h: 108px;
+  --header-h: 92px;
   --radius: 20px;
   --radius-sm: 12px;
   --shadow: 0 7px 14px rgba(0, 5, 82, 0.08);
@@ -453,7 +453,7 @@ html.js .hero-sub { transition: opacity 0.6s var(--ease-out) 0.2s; }
   .footer-brand { grid-column: 1 / -1; }
 }
 @media (max-width: 980px) {
-  :root { --header-h: 84px; }
+  :root { --header-h: 76px; }
   .nav, .site-header .lang.desktop, .site-header .btn { display: none; }
   .burger { display: block; }
   .hero { padding-top: 0; }
