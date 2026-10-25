@@ -153,6 +153,7 @@
         const p = 1990 + (m2 - 50) * 30;
         return { val: p.toLocaleString('sv-SE') + ' kr', note: t('1 990 kr plus 30 kr per m² över 50 m², efter RUT, fönster invändigt ingår', '1,990 kr plus 30 kr per m² above 50 m², after RUT, windows inside included') };
       }
+      if (svc === 'Kontorsstädning' || svc === 'Lokalstädning') return { val: t('från 395 kr/h', 'from 395 kr/h'), note: t('exklusive moms, fast pris efter kostnadsfritt platsbesök', 'excluding VAT, fixed price after a free site visit') };
       if (svc === 'Fönsterputs') return { val: t('från 995 kr', 'from 995 kr'), note: t('per tillfälle efter RUT, beror på antal fönster', 'per visit after RUT, depends on the number of windows') };
       if (svc === 'Flytthjälp') { if (!m2) return null; const h = Math.max(3, Math.round(m2 / 15)); return { val: t('ca ', 'approx. ') + kr(h * 599), note: t(`${h} timmar, två flyttare och bil, efter RUT`, `${h} hours, two movers and a van, after RUT`) }; }
       if (svc === 'Packning') { if (!m2) return null; const h = Math.max(2, Math.round(m2 / 25)); return { val: t('ca ', 'approx. ') + kr(h * 299), note: t(`${h} timmar à 299 kr per person efter RUT`, `${h} hours at 299 kr per person after RUT`) }; }
@@ -165,6 +166,7 @@
       const est = estimate(inp.value, parseInt(val('#b-yta'), 10) || 0, radioVal('frekvens'));
       if (!est) { priceBox.hidden = true; return; }
       priceBox.hidden = false; priceVal.textContent = est.val; priceNote.textContent = est.note + '. ' + t('Riktpris, vi bekräftar.', 'Guide price, we confirm.');
+      const b2b = catOf[inp.value] === 'foretag'; $$('.bk-perk-rut').forEach(el => el.hidden = b2b); $$('.bk-perk-b2b').forEach(el => el.hidden = !b2b);
       return est;
     }
     function updateLive() {
