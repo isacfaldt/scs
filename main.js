@@ -144,18 +144,16 @@
         const p = 1990 + (m2 - 50) * 30;
         return { val: p.toLocaleString('sv-SE') + ' kr', note: t('1 990 kr plus 30 kr per m² över 50 m², efter RUT, allt material ingår', '1,990 kr plus 30 kr per m² above 50 m², after RUT, all supplies included') };
       }
-      const perM2 = { 'Visningsstädning': 39 };
-      if (svc === 'Hemstädning') { if (!m2) return null; const h = m2 <= 30 ? 3 : m2 <= 50 ? 4 : 4 + Math.ceil((m2 - 50) / 10) * 0.5; const p = h * 289; return { val: t('ca ', 'approx. ') + kr(p), note: t(`${h} timmar à 289 kr efter RUT, per tillfälle`, `${h} hours at 289 kr after RUT, per visit`) }; }
-      if (perM2[svc]) {
+      /* visningsstädning: samma fasta modell som storstädning, fönster invändigt ingår */
+      if (svc === 'Visningsstädning') {
         if (!m2) return null;
-        const MIN = 1650, raw = Math.round(m2 * perM2[svc] / 50) * 50, p = Math.max(MIN, raw);
-        const note = raw < MIN
-          ? t(`lägsta pris ${kr(MIN)} efter RUT (${m2} m² à ${perM2[svc]} kr), allt material ingår`, `minimum price ${kr(MIN)} after RUT (${m2} m² at ${perM2[svc]} kr), all supplies included`)
-          : t(`${m2} m² à ${perM2[svc]} kr efter RUT, allt material ingår`, `${m2} m² at ${perM2[svc]} kr after RUT, all supplies included`);
-        return { val: t('ca ', 'approx. ') + kr(p), note };
+        if (m2 <= 30) return { val: '1 790 kr', note: t('fast pris upp till 30 m² efter RUT, fönster invändigt ingår', 'fixed price up to 30 m² after RUT, windows inside included') };
+        if (m2 <= 50) return { val: '1 990 kr', note: t('fast pris 31 till 50 m² efter RUT, fönster invändigt ingår', 'fixed price 31 to 50 m² after RUT, windows inside included') };
+        const p = 1990 + (m2 - 50) * 30;
+        return { val: p.toLocaleString('sv-SE') + ' kr', note: t('1 990 kr plus 30 kr per m² över 50 m², efter RUT, fönster invändigt ingår', '1,990 kr plus 30 kr per m² above 50 m², after RUT, windows inside included') };
       }
       if (svc === 'Fönsterputs') return { val: t('från 995 kr', 'from 995 kr'), note: t('per tillfälle efter RUT, beror på antal fönster', 'per visit after RUT, depends on the number of windows') };
-      if (svc === 'Flytthjälp') { if (!m2) return null; const h = Math.max(3, Math.round(m2 / 15)); return { val: t('ca ', 'approx. ') + kr(h * 499), note: t(`${h} timmar, två flyttare och bil, efter RUT`, `${h} hours, two movers and a van, after RUT`) }; }
+      if (svc === 'Flytthjälp') { if (!m2) return null; const h = Math.max(3, Math.round(m2 / 15)); return { val: t('ca ', 'approx. ') + kr(h * 599), note: t(`${h} timmar, två flyttare och bil, efter RUT`, `${h} hours, two movers and a van, after RUT`) }; }
       if (svc === 'Packning') { if (!m2) return null; const h = Math.max(2, Math.round(m2 / 25)); return { val: t('ca ', 'approx. ') + kr(h * 299), note: t(`${h} timmar à 299 kr per person efter RUT`, `${h} hours at 299 kr per person after RUT`) }; }
       if (svc === 'Magasinering') return { val: t('från 495 kr/mån', 'from 495 kr/month'), note: t('per kubikmeter, hämtning bokas som flytthjälp', 'per cubic metre, collection booked as moving help') };
       return { val: t('Offert', 'Quote'), note: t('fast pris efter kostnadsfritt platsbesök', 'fixed price after a free site visit') };
