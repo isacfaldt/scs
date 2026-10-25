@@ -44,9 +44,8 @@
     heroTitle.style.fontSize = ''; titleLines.forEach(sp => sp.style.whiteSpace = '');
     const base = parseFloat(getComputedStyle(heroTitle).fontSize); let s = 1;
     titleLines.forEach(sp => { const w = sp.parentElement.clientWidth; const r = document.createRange(); r.selectNodeContents(sp); const need = r.getBoundingClientRect().width; if (need > w) s = Math.min(s, w / need); });
-    /* krymp max till 80 %; behöver den krympa mer får raden brytas i stället (Farzin: stor text) */
-    if (s < 0.8) { heroTitle.style.fontSize = (base * 0.85) + 'px'; titleLines.forEach(sp => sp.style.whiteSpace = 'normal'); }
-    else if (s < 1) heroTitle.style.fontSize = (base * s * 0.985) + 'px';
+    /* så stor som möjligt utan radbrytning: krymp exakt så mycket som behövs (Isac 2026-10-25) */
+    if (s < 1) heroTitle.style.fontSize = (base * s * 0.985) + 'px';
   }
   function applyCopy(i) { const c = heroCopy()[i]; if (!titleLines.length) return; titleLines[0].textContent = c.l0; titleLines[1].textContent = c.l1; if (heroSub) heroSub.textContent = c.sub; fitTitle(); }
   addEventListener('resize', fitTitle);
