@@ -222,7 +222,10 @@
       const inp = selected();
       const lines = [...form.querySelectorAll('#bk-summary div')].map(d => d.querySelector('dt').textContent + ': ' + d.querySelector('dd').textContent);
       const href = `mailto:info@swedencityservice.se?subject=${encodeURIComponent(t('Bokning: ', 'Booking: ') + tr(inp.value))}&body=${encodeURIComponent(lines.join('\n'))}`;
-      form.classList.add('sent'); window.location.href = href;
+      const th = form.querySelector('.th-text'); const name = (val('#f-namn') || '').trim().split(' ')[0]; const tel = (val('#f-tel') || '').trim();
+      if (th) th.textContent = t(`${name ? name + ', din' : 'Din'} bokning av ${tr(inp.value).toLowerCase()} är mottagen. Vi hör av oss${tel ? ' på ' + tel : ''} inom kort och bekräftar tid och pris.`, `${name ? name + ', your' : 'Your'} booking for ${tr(inp.value).toLowerCase()} has been received. We will get back to you${tel ? ' on ' + tel : ''} shortly to confirm the time and price.`);
+      form.classList.add('sent'); try { form.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) {}
+      setTimeout(() => { window.location.href = href; }, 400);
     });
     preselect = function (name, extra) {
       const cat = catOf[name]; if (cat) { showCat(cat); const inp = form.querySelector(`input[name="tjanst"][value="${name}"]`); if (inp) { inp.checked = true; syncService(); } }
