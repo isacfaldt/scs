@@ -356,6 +356,7 @@ body.menu-open .mobile-menu { opacity: 1; visibility: visible; transform: none; 
 .page-hero-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 2rem clamp(2rem, 5vw, 5rem); align-items: center; }
 .page-hero .h1 { font-size: clamp(2.4rem, 4.8vw, 3.8rem); margin-bottom: 1rem; }
 .page-hero .lead { max-width: 56ch; }
+.page-hero [style*="text-align:center"] .lead { margin-left: auto; margin-right: auto; }
 .page-hero-media { position: relative; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-lg); aspect-ratio: 4 / 5; }
 .page-hero-media img { width: 100%; height: 100%; object-fit: cover; }
 .page-hero-media .sticker { position: absolute; left: 1.2rem; bottom: 1.2rem; background: #fff; border-radius: var(--radius-sm); padding: 0.8rem 1rem; box-shadow: var(--shadow); font-weight: 900; font-size: 0.9rem; color: var(--navy); }
