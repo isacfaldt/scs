@@ -28,11 +28,11 @@
   const heroSub = $('.hero-sub');
   const SLIDE_MS = 13000; /* klippen loopar sömlöst (makeLoop), så texten hinner läsas */
   const copySv = [
-    { l0: 'Städservice och flytthjälp', l1: 'i hela Stockholm', sub: 'Hemstädning, flyttstädning, storstädning, visningsstädning och fönsterputs i hela Stockholmsområdet. Med RUT-avdrag direkt på fakturan.' },
-    { l0: 'Trygg, säker och punktlig', l1: 'hemstädning', sub: 'Varje vecka, varannan vecka eller när det passar dig. Samma städare varje gång, tydlig checklista och RUT-avdrag direkt på fakturan.' },
-    { l0: 'Städning med fokus', l1: 'på kvalitet', sub: 'Kontorsstädning, lokalstädning och trappstädning med tydliga rutiner och utbildad personal. För företag, fastighetsägare och bostadsrättsföreningar.' },
-    { l0: 'Flyttstädning med garanti', l1: 'i hela Stockholm', sub: 'Grundlig städning av hela bostaden inför överlämning, med tydlig checklista och fast pris. Blir något anmärkt vid besiktningen åtgärdar vi det utan kostnad.' },
-    { l0: 'Flytthjälp för privatpersoner', l1: 'och företag i Stockholm', sub: 'Flytthjälp, kontorsflyttning, packning och magasinering. En enda kontakt som tar hand om hela flytten.' }
+    { l0: 'Professionell städning', l1: 'för hem och företag', sub: 'Hemstädning, flyttstädning, storstädning, visningsstädning och fönsterputs i hela Stockholmsområdet. Med RUT-avdrag direkt på fakturan.' },
+    { l0: 'Städning med fokus', l1: 'på kvalitet', sub: 'Varje vecka, varannan vecka eller när det passar dig. Samma städare varje gång, tydlig checklista och RUT-avdrag direkt på fakturan.' },
+    { l0: 'Städservice och flytthjälp', l1: 'för företag', sub: 'Kontorsstädning, lokalstädning och trappstädning med tydliga rutiner och utbildad personal. För företag, fastighetsägare och bostadsrättsföreningar.' },
+    { l0: 'Nöjd kund-garanti', l1: 'på varje uppdrag', sub: 'Grundlig städning av hela bostaden inför överlämning, med tydlig checklista och fast pris. Blir något anmärkt vid besiktningen åtgärdar vi det utan kostnad.' },
+    { l0: 'Trygg, säker och punktlig', l1: 'flytthjälp', sub: 'Flytthjälp, kontorsflyttning, packning och magasinering. En enda kontakt som tar hand om hela flytten.' }
   ];
   const copyEn = window.SCS_HERO_EN || copySv;
   let current = 0, slideStart = performance.now(), swapping = false;
