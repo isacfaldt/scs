@@ -197,6 +197,8 @@ window.SCS_EN = {
   "Storstädning i Stockholm, från golv till tak": "Deep cleaning in Stockholm, top to bottom",
   "En ordentlig genomgång av hela hemmet, inför högtider, efter renovering eller när det bara behövs. Vi följer en checklista så att resultatet blir jämnt och högt.": "A proper top-to-bottom clean of the whole home, before holidays, after renovation or whenever it is needed. We follow a checklist so the result is consistent and high.",
   "från 35 kr/m²": "from 35 kr/m²",
+  "Fast pris efter RUT-avdrag, allt städmaterial ingår. Upp till 30 m² 1 790 kr, 31 till 50 m² 1 990 kr, därefter 30 kr för varje kvadratmeter över 50.": "Fixed price after the RUT deduction, all cleaning supplies included. Up to 30 m² 1,790 kr, 31 to 50 m² 1,990 kr, then 30 kr for every square metre above 50.",
+  "från 1 790 kr": "from 1,790 kr",
   "från 2 190 kr": "from 2,190 kr",
   "efter RUT, fast pris, allt material ingår": "after RUT, fixed price, all supplies included",
   "från 39 kr/m²": "from 39 kr/m²",
