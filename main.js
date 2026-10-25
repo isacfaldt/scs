@@ -72,7 +72,8 @@
       const act = slides[current]; const actV = act && act.querySelector('video');
       /* varje bild visas så länge dess klipp räcker (minus tonings-marginal), max SLIDE_MS */
       /* data-loops="2": bilden visas tills klippet spelats två gånger, annars SLIDE_MS */
-      const loops = act && +act.dataset.loops; const limit = (loops && actV && actV.duration) ? Math.max(4000, actV.duration * loops * 1000 - 400) : SLIDE_MS;
+      const loops = act && +act.dataset.loops; const chainV = act && act.dataset.chain ? act.querySelectorAll('video') : null;
+      const limit = (chainV && chainV[1] && chainV[0].duration && chainV[1].duration) ? (chainV[0].duration + chainV[1].duration) * 1000 - 400 : (loops && actV && actV.duration) ? Math.max(4000, actV.duration * loops * 1000 - 400) : SLIDE_MS;
       const el = tm - slideStart; const p = Math.min(1, el / limit);
       dots.forEach((d, k) => { const i = d.querySelector('i'); if (i) i.style.transform = `scaleX(${k === current ? p : (k < current ? 1 : 0)})`; });
       if (act) act.style.transform = `scale(${1 + 0.04 * (el / limit)})`;
@@ -296,8 +297,10 @@ function makeLoop(box) {
   const FADE = 0.6;
   const a = box.querySelector('video'); if (!a) return null;
   a.removeAttribute('loop'); a.loop = false; a.preload = 'auto';
-  const b = a.cloneNode(true); b.classList.add('is-out'); b.removeAttribute('autoplay'); b.setAttribute('aria-hidden', 'true'); b.preload = 'auto';
-  box.insertBefore(b, a.nextSibling);
+  /* kedja: finns redan en andra video i rutan (annat klipp) används den, annars klonas den första */
+  let b = a.nextElementSibling && a.nextElementSibling.tagName === 'VIDEO' ? a.nextElementSibling : null;
+  if (!b) { b = a.cloneNode(true); b.classList.add('is-out'); b.removeAttribute('autoplay'); b.setAttribute('aria-hidden', 'true'); b.preload = 'auto'; box.insertBefore(b, a.nextSibling); }
+  b.removeAttribute('loop'); b.loop = false;
   try { b.load(); } catch (e) {}
   let cur = a, nxt = b, switching = false, running = false;
   const safePlay = v => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
