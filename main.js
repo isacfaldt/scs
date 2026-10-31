@@ -12,10 +12,10 @@
   const toast = $('.toast');
   let toastTimer = 0;
   function showToast(msg, ms) { if (!toast) return; toast.textContent = msg; toast.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('show'), ms || 3200); }
-  /* form sending via FormSubmit (AJAX). Delivered to FORM_TO, copy to FORM_CC. */
-  const FORM_TO = 'info@swedencityservice.se', FORM_CC = 'isac.faldt@gmail.com';
+  /* form sending via FormSubmit (AJAX). Delivered to FORM_TO. */
+  const FORM_TO = 'info@swedencityservice.se';
   async function sendForm(fields) {
-    const body = Object.assign({ _template: 'table', _captcha: 'false', _cc: FORM_CC }, fields);
+    const body = Object.assign({ _template: 'table', _captcha: 'false' }, fields);
     const res = await fetch('https://formsubmit.co/ajax/' + FORM_TO, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(body) });
     const data = await res.json().catch(() => ({}));
     if (!res.ok || String(data.success) !== 'true') throw new Error(data.message || ('HTTP ' + res.status));
