@@ -13,7 +13,7 @@
   let toastTimer = 0;
   function showToast(msg, ms) { if (!toast) return; toast.textContent = msg; toast.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('show'), ms || 3200); }
   /* form sending via FormSubmit (AJAX). Delivered to FORM_TO. */
-  const FORM_TO = 'info@swedencityservice.se';
+  const FORM_TO = 'info@swedencityservice.se', EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   async function sendForm(fields) {
     const body = Object.assign({ _template: 'table', _captcha: 'false' }, fields);
     const res = await fetch('https://formsubmit.co/ajax/' + FORM_TO, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(body) });
@@ -231,7 +231,7 @@
       else if (!noScroll) { const top = form.getBoundingClientRect().top + scrollY - headerH() - 16; if (Math.abs(scrollY - top) > 60 && lenis) lenis.scrollTo(top, { duration: 0.8 }); }
     }
     function validate(n) {
-      if (n === 3 && (!val('#f-namn') || !val('#f-tel'))) { showToast(t('Fyll i namn och telefon så vi kan bekräfta tiden.', 'Please fill in your name and phone so we can confirm the time.')); (val('#f-namn') ? $('#f-tel') : $('#f-namn')).focus(); return false; }
+      if (n === 3 && (!val('#f-namn') || !val('#f-tel') || !EMAIL_RE.test(val('#f-epost')))) { showToast(t('Fyll i namn, telefon och e-post så vi kan bekräfta tiden.', 'Please fill in your name, phone and email so we can confirm the time.')); (!val('#f-namn') ? $('#f-namn') : !val('#f-tel') ? $('#f-tel') : $('#f-epost')).focus(); return false; }
       return true;
     }
     $$('.bk-cat', form).forEach(b => b.addEventListener('click', () => showCat(b.dataset.cat)));
@@ -299,7 +299,7 @@
     e.preventDefault();
     const namn = $('#k-namn').value.trim(); if (!namn) { showToast(t('Fyll i ditt namn.', 'Please fill in your name.')); $('#k-namn').focus(); return; }
     const tel = $('#k-tel').value.trim(), epost = $('#k-epost').value.trim(), msg = $('#k-msg').value.trim();
-    if (!tel && !epost) { showToast(t('Fyll i telefon eller e-post så att vi kan nå dig.', 'Please fill in a phone number or email so we can reach you.')); $('#k-tel').focus(); return; }
+    if (!EMAIL_RE.test(epost)) { showToast(t('Fyll i din e-post så att vi kan svara dig.', 'Please fill in your email so we can reply to you.')); $('#k-epost').focus(); return; }
     const fields = { _subject: t('Kontakt: ', 'Contact: ') + $('#k-arende').value, 'Namn': namn, 'Telefon': tel, 'E-post': epost, 'Ärende': $('#k-arende').value, 'Meddelande': msg, 'Skickat från': location.href };
     if (epost) fields._replyto = epost;
     const btn = kf.querySelector('button[type="submit"]'); const oldHtml = btn ? btn.innerHTML : '';
