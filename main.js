@@ -255,6 +255,8 @@
       if (btn) { btn.disabled = false; btn.innerHTML = oldHtml; }
       const th = form.querySelector('.th-text'); const name = (val('#f-namn') || '').trim().split(' ')[0]; const tel = (val('#f-tel') || '').trim();
       if (th) th.textContent = t(`${name ? name + ', din' : 'Din'} bokning av ${tr(inp.value).toLowerCase()} är mottagen. Vi hör av oss${tel ? ' på ' + tel : ''} inom kort och bekräftar tid och pris.`, `${name ? name + ', your' : 'Your'} booking for ${tr(inp.value).toLowerCase()} has been received. We will get back to you${tel ? ' on ' + tel : ''} shortly to confirm the time and price.`);
+      const grid = form.closest('.book-grid'), note = grid && grid.querySelector('.bk-live-note');
+      if (note) note.textContent = t('Din bokning är mottagen. Vi återkommer inom 24 timmar med bekräftelse och pris.', 'Your booking has been received. We will get back to you within 24 hours with a confirmation and price.');
       form.classList.add('sent'); try { form.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) {}
     });
     preselect = function (name, extra) {
