@@ -75,8 +75,6 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .circle-btn svg { width: 18px; height: 18px; }
 
 /* ---------- progress ---------- */
-.progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 90; pointer-events: none; }
-.progress span { display: block; height: 100%; background: var(--navy); transform: scaleX(0); transform-origin: left; }
 
 /* ---------- header ---------- */
 .site-header { position: sticky; top: 0; z-index: 80; height: var(--header-h); display: flex; align-items: center; background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition: box-shadow 0.3s; }

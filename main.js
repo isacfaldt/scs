@@ -63,11 +63,9 @@
   if (hero) { applyCopy(0); playSlide(0); const arm = () => { hero.classList.add('ready'); slideStart = performance.now(); }; if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => setTimeout(arm, 100)); else setTimeout(arm, 300); }
 
   /* ---------- rAF loop ---------- */
-  const progressBar = $('.progress span');
   function frame(tm) {
     if (lenis) lenis.raf(tm);
-    const sy = window.scrollY; const max = document.documentElement.scrollHeight - innerHeight;
-    if (progressBar) progressBar.style.transform = `scaleX(${max > 0 ? sy / max : 0})`;
+    const sy = window.scrollY;
     if (header) header.classList.toggle('scrolled', sy > 10);
     if (hero && sy < innerHeight * 1.3) {
       const act = slides[current]; const actV = act && act.querySelector('video');
