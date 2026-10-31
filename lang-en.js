@@ -48,6 +48,7 @@ window.SCS_EN = {
   "Vi utför": "We do the job",
   "Utbildad personal kommer på avtalad tid och utför uppdraget enligt våra rutiner. Du går igenom resultatet med oss.": "Trained staff arrive at the agreed time and carry out the job according to our routines. You go through the result with us.",
   "En trygg partner, från första kontakt till slutfört uppdrag.": "A partner you can trust, from first contact to finished job.",
+  "Städning med omtanke om ditt hem.": "Cleaning that cares about your home.",
   "Sweden City Service är ett lokalt serviceföretag i Stockholm med fokus på professionell städning och flytthjälp för privatpersoner, företag och bostadsrättsföreningar.": "Sweden City Service is a local service company in Stockholm focused on professional cleaning and moving help for private customers, companies and housing associations.",
   "Utbildad personal och tydliga rutiner vid varje uppdrag": "Trained staff and clear routines on every job",
   "Punktlighet, noggrannhet och god kommunikation": "Punctuality, thoroughness and good communication",
