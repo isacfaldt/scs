@@ -236,7 +236,7 @@
 
   /* ---------- booking modal (undersidor) ---------- */
   const modal = $('#bokamodal');
-  function openModal() { if (!modal) return; modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false'); document.body.classList.add('modal-open'); if (lenis) lenis.stop(); const dlg = $('.modal-dialog', modal); if (dlg) dlg.scrollTop = 0; }
+  function openModal() { if (!modal) return; modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false'); document.body.classList.add('modal-open'); if (lenis) lenis.stop(); const dlg = $('.modal-dialog', modal); if (dlg) { dlg.setAttribute('data-lenis-prevent', ''); dlg.scrollTop = 0; } }
   function closeModal() { if (!modal) return; modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true'); document.body.classList.remove('modal-open'); if (lenis) lenis.start(); }
   if (modal) { $$('[data-close]', modal).forEach(b => b.addEventListener('click', closeModal)); document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); }); }
   function goBooking(extra) { if (modal) openModal(); else { const sec = $('#boka'); if (sec) scrollToEl(sec, 16); } }
