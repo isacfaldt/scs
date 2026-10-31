@@ -346,6 +346,8 @@ window.SCS_EN = {
   "Trappstädning i Stockholm · Sweden City Service": "Stairwell cleaning in Stockholm · Sweden City Service",
   "Helhetslösning för er bostadsrättsförening": "A complete solution for your housing association",
   "Trapphus, tvättstuga, soprum, gård och gemensamma lokaler i ett avtal. Föreningen får en kontaktperson och en tydlig faktura.": "Stairwells, laundry room, refuse room, courtyard and shared premises in one agreement. The association gets one contact person and one clear invoice.",
+  "En städpartner för hela er fastighet, i ett avtal": "One cleaning partner for your whole property, in one agreement",
+  "Trapphus, tvättstuga, soprum, gård och gemensamma lokaler i ett avtal. Föreningen får en kontaktperson och en tydlig faktura. Vi lägger upp ett städschema som passar er fastighet, så att trapphus och gemensamma utrymmen alltid möter boende och besökare på bästa sätt.": "Stairwells, laundry room, refuse room, courtyard and shared premises in one agreement. The association gets one contact person and one clear invoice. We set up a cleaning schedule that suits your property, so stairwells and shared spaces always greet residents and visitors at their best.",
   "Pris efter kostnadsfritt platsbesök. Vi lämnar ett fast månadspris för hela föreningen.": "Price after a free site visit. We give a fixed monthly price for the whole association.",
   "Gemensamma ytor": "Shared areas",
   "Trapphus och entréer": "Stairwells and entrances",
