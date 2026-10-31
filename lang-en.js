@@ -110,6 +110,7 @@ window.SCS_EN = {
   "Tack, din bokning är mottagen.": "Thank you, your booking has been received.",
   "Bokning mottagen": "Booking received",
   "Tack för att du valde Sweden City Service!": "Thank you for choosing Sweden City Service!",
+  "Tack för din bokning!": "Thank you for your booking!",
   "Din bokning är mottagen. Vi hör av oss inom kort och bekräftar tid och pris.": "Your booking has been received. We will get back to you shortly to confirm the time and price.",
   "Vi ringer eller mejlar dig inom 24 timmar": "We call or email you within 24 hours",
   "Du får ett tydligt pris innan vi börjar": "You get a clear price before we start",
