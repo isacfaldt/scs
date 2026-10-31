@@ -436,6 +436,14 @@ body.modal-open { overflow: hidden; }
 .modal .bk-rutinfo { padding: 1rem 1.1rem; font-size: 0.86rem; }
 .modal .bk-rutinfo strong { font-size: 1.2rem; }
 .modal .bk-price-val { font-size: 1.8rem; }
+.modal .booking, .modal .booking > *, .modal .bk-pane > *, .modal .form-row > *, .modal .bk-opts > *, .modal .bk-services > *, .modal .bk-side { min-width: 0; }
+.modal .bk-steps { overflow: hidden; }
+@media (max-width: 1240px) {
+  .modal .bk-steps { gap: 0.8rem; }
+  .modal .bk-steps li:not(.active) .bk-lbl { display: none; }
+  .modal .bk-opt span { padding: 0.65rem 0.8rem; gap: 0.4rem; }
+  .modal .bk-opt span em { font-size: 0.6rem; padding: 0.22rem 0.45rem; }
+}
 @media (max-width: 980px) {
   .page-hero-grid, .price-grid { grid-template-columns: 1fr; }
   .page-hero-media { aspect-ratio: 16 / 10; }
