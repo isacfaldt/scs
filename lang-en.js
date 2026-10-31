@@ -533,6 +533,7 @@ window.SCS_EN = {
   "För att garantera en godkänd besiktning städar vi enligt en strikt checklista som täcker allt som krävs vid en flytt.": "To guarantee an approved inspection we clean according to a strict checklist that covers everything required when moving out.",
   "Storstädning: en djuprengöring för ett friskare hem": "Deep cleaning: a thorough clean for a healthier home",
   "En djuprengöring för ett friskare hem": "A thorough clean for a healthier home",
+  "En djuprengöring för ett friskare och fräschare hem": "A thorough clean for a healthier, fresher home",
   "Ibland räcker inte den vanliga veckostädningen till. En storstädning är en investering i din hemmiljö och din hälsa. Vi går på djupet och avlägsnar ingrott smuts, damm och allergener som samlats bakom element, ovanpå skåp och i svåråtkomliga hörn. Ge ditt hem den nystart det förtjänar.": "Sometimes the usual weekly clean is not enough. A deep clean is an investment in your home environment and your health. We go deep and remove ingrained dirt, dust and allergens that gather behind radiators, on top of cupboards and in hard-to-reach corners. Give your home the fresh start it deserves.",
   "Grundlig rengöring bakom spis och kylskåp": "Thorough cleaning behind the stove and fridge",
   "Rengöring av köksfläkt och mikrovågsugn": "Cleaning the extractor hood and microwave",
