@@ -199,6 +199,9 @@
       step = n;
       panes.forEach(p => p.classList.toggle('active', +p.dataset.pane === n));
       stepsEls.forEach(s => { const k = +s.dataset.step; s.classList.toggle('active', k === n); s.classList.toggle('done', k < n); });
+      const act = stepsEls.find(s => +s.dataset.step === n), row = act && act.parentElement;
+      const slideSteps = () => { if (!row || row.scrollWidth <= row.clientWidth) return; const need = row.scrollLeft + act.getBoundingClientRect().right - row.getBoundingClientRect().right + 6; row.scrollLeft = Math.max(0, Math.min(need, row.scrollWidth - row.clientWidth)); };
+      slideSteps(); requestAnimationFrame(() => requestAnimationFrame(slideSteps)); setTimeout(slideSteps, 500);
       back.hidden = n === 1; next.hidden = n === 4; send.hidden = n !== 4;
       if (n === 4) buildSummary();
       if (inModal) { const dlg = form.closest('.modal-dialog'); if (dlg) dlg.scrollTo({ top: 0, behavior: 'smooth' }); }

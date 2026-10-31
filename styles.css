@@ -437,7 +437,8 @@ body.modal-open { overflow: hidden; }
 .modal .bk-rutinfo strong { font-size: 1.2rem; }
 .modal .bk-price-val { font-size: 1.8rem; }
 .modal .booking, .modal .booking > *, .modal .bk-pane > *, .modal .form-row > *, .modal .bk-opts > *, .modal .bk-services > *, .modal .bk-side { min-width: 0; }
-.modal .bk-steps { overflow: hidden; }
+.bk-steps { overflow-x: auto; scrollbar-width: none; }
+.bk-steps::-webkit-scrollbar { display: none; }
 @media (max-width: 1240px) {
   .modal .bk-steps { gap: 0.8rem; }
   .modal .bk-steps li:not(.active) .bk-lbl { display: none; }
