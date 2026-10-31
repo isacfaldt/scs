@@ -11,7 +11,17 @@
   const headerH = () => (header ? header.offsetHeight : 0);
   const toast = $('.toast');
   let toastTimer = 0;
-  function showToast(msg) { if (!toast) return; toast.textContent = msg; toast.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('show'), 3200); }
+  function showToast(msg, ms) { if (!toast) return; toast.textContent = msg; toast.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('show'), ms || 3200); }
+  /* form sending via FormSubmit (AJAX). Delivered to FORM_TO, copy to FORM_CC. */
+  const FORM_TO = 'info@swedencityservice.se', FORM_CC = 'isac.faldt@gmail.com';
+  async function sendForm(fields) {
+    const body = Object.assign({ _template: 'table', _captcha: 'false', _cc: FORM_CC }, fields);
+    const res = await fetch('https://formsubmit.co/ajax/' + FORM_TO, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(body) });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || String(data.success) !== 'true') throw new Error(data.message || ('HTTP ' + res.status));
+    return data;
+  }
+  const SEND_FAIL = () => t('Det gick inte att skicka just nu. Ring 070-028 38 39 eller mejla info@swedencityservice.se så hjälper vi dig.', 'We could not send your message right now. Call 070-028 38 39 or email info@swedencityservice.se and we will help you.');
   function scrollToEl(el, extra) { if (!el) return; const offset = -(headerH() + (extra || 16)); if (lenis) lenis.scrollTo(el, { offset, duration: 1.3 }); else el.scrollIntoView({ behavior: 'smooth' }); }
 
   /* ---------- language ---------- */
@@ -217,16 +227,22 @@
     next.addEventListener('click', () => { if (validate(step)) goStep(step + 1); });
     back.addEventListener('click', () => goStep(step - 1));
     stepsEls.forEach(s => s.addEventListener('click', () => { const k = +s.dataset.step; if (k < step) goStep(k); }));
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       if (!validate(3)) { goStep(3); return; }
       const inp = selected();
-      const lines = [...form.querySelectorAll('#bk-summary div')].map(d => d.querySelector('dt').textContent + ': ' + d.querySelector('dd').textContent);
-      const href = `mailto:info@swedencityservice.se?subject=${encodeURIComponent(t('Bokning: ', 'Booking: ') + tr(inp.value))}&body=${encodeURIComponent(lines.join('\n'))}`;
+      const fields = { _subject: t('Bokning: ', 'Booking: ') + tr(inp.value) };
+      [...form.querySelectorAll('#bk-summary div')].forEach(d => { fields[d.querySelector('dt').textContent] = d.querySelector('dd').textContent; });
+      const email = val('#f-epost'); if (email) fields._replyto = email;
+      fields['Skickat från'] = location.href;
+      const btn = form.querySelector('button[type="submit"]'); const oldHtml = btn ? btn.innerHTML : '';
+      if (btn) { btn.disabled = true; btn.textContent = t('Skickar…', 'Sending…'); }
+      try { await sendForm(fields); }
+      catch (err) { if (btn) { btn.disabled = false; btn.innerHTML = oldHtml; } showToast(SEND_FAIL(), 8000); return; }
+      if (btn) { btn.disabled = false; btn.innerHTML = oldHtml; }
       const th = form.querySelector('.th-text'); const name = (val('#f-namn') || '').trim().split(' ')[0]; const tel = (val('#f-tel') || '').trim();
       if (th) th.textContent = t(`${name ? name + ', din' : 'Din'} bokning av ${tr(inp.value).toLowerCase()} är mottagen. Vi hör av oss${tel ? ' på ' + tel : ''} inom kort och bekräftar tid och pris.`, `${name ? name + ', your' : 'Your'} booking for ${tr(inp.value).toLowerCase()} has been received. We will get back to you${tel ? ' on ' + tel : ''} shortly to confirm the time and price.`);
       form.classList.add('sent'); try { form.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) {}
-      setTimeout(() => { window.location.href = href; }, 400);
     });
     preselect = function (name, extra) {
       const cat = catOf[name]; if (cat) { showCat(cat); const inp = form.querySelector(`input[name="tjanst"][value="${name}"]`); if (inp) { inp.checked = true; syncService(); } }
@@ -264,13 +280,20 @@
   const ff = $('#footform');
   if (ff) ff.addEventListener('submit', (e) => { e.preventDefault(); preselect('Hemstädning', { postnr: $('#ff-postnr').value.trim(), yta: $('#ff-yta').value.trim(), step: 2 }); goBooking(); });
   $$('.quick-form[data-pre]').forEach(qf => qf.addEventListener('submit', (e) => { e.preventDefault(); const yta = qf.querySelector('[data-yta]'), pn = qf.querySelector('[data-postnr]'); preselect(qf.dataset.pre, { yta: yta ? yta.value.trim() : '', postnr: pn ? pn.value.trim() : '', step: 2 }); goBooking(); }));
-  /* contact form: mailto in the sketch */
+  /* contact form: FormSubmit */
   const kf = $('#kontaktform');
-  if (kf) kf.addEventListener('submit', (e) => {
+  if (kf) kf.addEventListener('submit', async (e) => {
     e.preventDefault();
     const namn = $('#k-namn').value.trim(); if (!namn) { showToast(t('Fyll i ditt namn.', 'Please fill in your name.')); $('#k-namn').focus(); return; }
-    const body = [t('Namn', 'Name') + ': ' + namn, t('Telefon', 'Phone') + ': ' + $('#k-tel').value.trim(), t('E-post', 'Email') + ': ' + $('#k-epost').value.trim(), t('Ärende', 'Subject') + ': ' + $('#k-arende').value, '', $('#k-msg').value.trim()].join('\n');
-    kf.classList.add('sent'); window.location.href = `mailto:info@swedencityservice.se?subject=${encodeURIComponent($('#k-arende').value)}&body=${encodeURIComponent(body)}`;
+    const tel = $('#k-tel').value.trim(), epost = $('#k-epost').value.trim(), msg = $('#k-msg').value.trim();
+    if (!tel && !epost) { showToast(t('Fyll i telefon eller e-post så att vi kan nå dig.', 'Please fill in a phone number or email so we can reach you.')); $('#k-tel').focus(); return; }
+    const fields = { _subject: t('Kontakt: ', 'Contact: ') + $('#k-arende').value, 'Namn': namn, 'Telefon': tel, 'E-post': epost, 'Ärende': $('#k-arende').value, 'Meddelande': msg, 'Skickat från': location.href };
+    if (epost) fields._replyto = epost;
+    const btn = kf.querySelector('button[type="submit"]'); const oldHtml = btn ? btn.innerHTML : '';
+    if (btn) { btn.disabled = true; btn.textContent = t('Skickar…', 'Sending…'); }
+    try { await sendForm(fields); } catch (err) { if (btn) { btn.disabled = false; btn.innerHTML = oldHtml; } showToast(SEND_FAIL(), 8000); return; }
+    if (btn) { btn.disabled = false; btn.innerHTML = oldHtml; }
+    kf.classList.add('sent'); try { kf.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e2) {}
   });
 
   /* ---------- translation engine ---------- */
