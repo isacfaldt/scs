@@ -57,6 +57,18 @@
     /* så stor som möjligt utan radbrytning: krymp exakt så mycket som behövs (Isac 2026-10-25) */
     if (s < 1) heroTitle.style.fontSize = (base * s * 0.985) + 'px';
   }
+  /* undersidornas rubrik: ryms den nästan på en rad krymps den lite så att den gör det, oavsett skärmbredd (Farzin 2026-10-31) */
+  const pageH1 = $('.page-hero .h1');
+  function fitPageTitle() {
+    if (!pageH1) return;
+    pageH1.style.fontSize = '';
+    if (innerWidth <= 980) return;
+    const base = parseFloat(getComputedStyle(pageH1).fontSize), w = pageH1.clientWidth;
+    const prev = pageH1.style.whiteSpace; pageH1.style.whiteSpace = 'nowrap';
+    const need = pageH1.scrollWidth; pageH1.style.whiteSpace = prev;
+    if (need > w && need <= w * 1.25) pageH1.style.fontSize = (base * (w / need) * 0.985) + 'px';
+  }
+  fitPageTitle(); addEventListener('resize', fitPageTitle); if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitPageTitle);
   function applyCopy(i) { const c = heroCopy()[i]; if (!titleLines.length) return; titleLines[0].textContent = c.l0; titleLines[1].textContent = c.l1; if (heroSub) heroSub.textContent = c.sub; fitTitle(); }
   addEventListener('resize', fitTitle);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTitle);
