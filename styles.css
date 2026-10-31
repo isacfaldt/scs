@@ -339,7 +339,7 @@ body.menu-open .mobile-menu { opacity: 1; visibility: visible; transform: none; 
 .footer-top ul li a { display: inline-block; padding: 0.22rem 0; font-weight: 700; color: var(--ink); transition: color 0.25s, transform 0.3s var(--ease-out); }
 .footer-top ul li a:hover { color: var(--navy); transform: translateX(3px); }
 .footer-brand p { color: var(--ink-soft); max-width: 34ch; margin-top: 1rem; font-size: 0.95rem; }
-.footer-brand .brand-logo { height: 210px; }
+.footer-brand .brand-logo { height: 130px; }
 .footer-brand .brand-mark { width: 42px; height: 42px; }
 .footer-brand .brand-word { font-size: 2.1rem; }
 .footer-brand .socials { margin-top: 1.2rem; }

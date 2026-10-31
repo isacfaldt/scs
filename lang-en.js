@@ -572,6 +572,7 @@ window.SCS_EN = {
   "Varför välja Sweden City Service för din fönsterputs?": "Why choose Sweden City Service for your windows?",
   "Att putsa fönster kräver rätt teknik och material för att undvika statisk elektricitet och ränder.": "Cleaning windows takes the right technique and materials to avoid static and streaks.",
   "Kontorsstädning för ett representativt och trivsamt kontor": "Office cleaning for a presentable and pleasant office",
+  "Professionell kontorsstädning i Stockholm": "Professional office cleaning in Stockholm",
   "Ett rent kontor är mer än bara en snygg fasad. Det är en förutsättning för en god arbetsmiljö och ökad produktivitet. Vi erbjuder skräddarsydd kontorsstädning i Stockholm som anpassas helt efter ert företags behov, arbetstider och lokaler. Oavsett om ni behöver städning dagligen eller en gång i veckan, ser vi till att er arbetsplats alltid är välkomnande för både anställda och kunder.": "A clean office is more than a nice facade. It is a prerequisite for a good working environment and higher productivity. We offer tailored office cleaning in Stockholm, fully adapted to your company's needs, working hours and premises. Whether you need cleaning daily or once a week, we make sure your workplace is always welcoming for staff and customers alike.",
   "Arbetsplatser": "Workstations",
   "Avtorkning av skrivbord": "Wiping desks",
