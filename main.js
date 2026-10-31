@@ -63,10 +63,11 @@
     if (!pageH1) return;
     pageH1.style.fontSize = '';
     if (innerWidth <= 980) return;
-    const base = parseFloat(getComputedStyle(pageH1).fontSize), w = pageH1.clientWidth;
-    const prev = pageH1.style.whiteSpace; pageH1.style.whiteSpace = 'nowrap';
-    const need = pageH1.scrollWidth; pageH1.style.whiteSpace = prev;
-    if (need > w && need <= w * 1.32) pageH1.style.fontSize = (base * (w / need) * 0.985) + 'px';
+    const w = pageH1.clientWidth;
+    const measure = () => { const p = pageH1.style.whiteSpace; pageH1.style.whiteSpace = 'nowrap'; const r = document.createRange(); r.selectNodeContents(pageH1); const n = r.getBoundingClientRect().width; pageH1.style.whiteSpace = p; return n; };
+    let need = measure(), fs = parseFloat(getComputedStyle(pageH1).fontSize);
+    if (need <= w || need > w * 1.32) return;
+    for (let i = 0; i < 4 && need > w; i++) { fs = fs * (w / need) * 0.985; pageH1.style.fontSize = fs + 'px'; need = measure(); }
   }
   fitPageTitle(); addEventListener('resize', fitPageTitle); if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitPageTitle);
   function applyCopy(i) { const c = heroCopy()[i]; if (!titleLines.length) return; titleLines[0].textContent = c.l0; titleLines[1].textContent = c.l1; if (heroSub) heroSub.textContent = c.sub; fitTitle(); }
