@@ -549,6 +549,7 @@ window.SCS_EN = {
   "Många av våra kunder bokar en rejäl genomgång inför våren, inför stora högtider eller efter en renovering. Det är också det perfekta sättet att starta ett abonnemang på hemstädning, så att vi börjar från en helt ren bas.": "Many of our customers book a proper top-to-bottom clean before spring, before major holidays or after a renovation. It is also the perfect way to start a home cleaning subscription, so we begin from a completely clean base.",
   "Professionell visningsstädning inför din försäljning": "Professional pre-viewing cleaning before your sale",
   "Professionell städning inför din försäljning": "Professional cleaning before your sale",
+  "Professionell städning inför din bostadsförsäljning": "Professional cleaning before you sell your home",
   "Ska du sälja din bostad? En noggrann visningsstädning är en av de viktigaste investeringarna du kan göra för att höja helhetsintrycket och maximera slutpriset. Vi hjälper dig att visa upp ditt hem från sin absolut bästa sida, med fokus på detaljerna som imponerar på spekulanterna.": "Selling your home? A thorough pre-viewing clean is one of the best investments you can make to lift the overall impression and maximise the final price. We help you show your home from its very best side, with a focus on the details that impress prospective buyers.",
   "Rengöring av spis, ugn och fläkt": "Cleaning the stove, oven and extractor hood",
   "Utvändig avtorkning av alla skåp": "Wiping the outside of all cupboards",
