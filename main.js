@@ -66,7 +66,7 @@
     const base = parseFloat(getComputedStyle(pageH1).fontSize), w = pageH1.clientWidth;
     const prev = pageH1.style.whiteSpace; pageH1.style.whiteSpace = 'nowrap';
     const need = pageH1.scrollWidth; pageH1.style.whiteSpace = prev;
-    if (need > w && need <= w * 1.25) pageH1.style.fontSize = (base * (w / need) * 0.985) + 'px';
+    if (need > w && need <= w * 1.32) pageH1.style.fontSize = (base * (w / need) * 0.985) + 'px';
   }
   fitPageTitle(); addEventListener('resize', fitPageTitle); if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitPageTitle);
   function applyCopy(i) { const c = heroCopy()[i]; if (!titleLines.length) return; titleLines[0].textContent = c.l0; titleLines[1].textContent = c.l1; if (heroSub) heroSub.textContent = c.sub; fitTitle(); }
