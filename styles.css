@@ -127,7 +127,7 @@ body.menu-open .mobile-menu { opacity: 1; visibility: visible; transform: none; 
 
 /* ---------- hero ---------- */
 .hero { background: var(--mint); padding: 1rem 0 0; }
-.hero-stage { position: relative; min-height: clamp(560px, 78vh, 760px); overflow: hidden; background: var(--navy-deep); isolation: isolate; border-radius: 0; }
+.hero-stage { position: relative; min-height: clamp(560px, 78vh, 760px); overflow: hidden; background: rgb(var(--veil)); isolation: isolate; border-radius: 0; }
 .hero-media { position: absolute; inset: 0; z-index: 0; }
 .hero-media .slide { position: absolute; inset: -5%; opacity: 0; transition: opacity 1.7s var(--ease-soft); will-change: opacity, transform; }
 .hero-media .slide.active { opacity: 1; }
