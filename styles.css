@@ -355,6 +355,14 @@ body.menu-open .mobile-menu { opacity: 1; visibility: visible; transform: none; 
 .page-hero .h1 { font-size: clamp(1.85rem, 2.6vw, 2.25rem); margin-bottom: 1rem; text-wrap: balance; }
 .page-hero .lead { max-width: 56ch; }
 .page-hero .lead + .lead { margin-top: 0.9rem; }
+/* luftigare textkolumn på sidor där bilden är högre än texten */
+@media (min-width: 981px) {
+  .page-hero-grid.airy .crumb { margin-bottom: 1.4rem; }
+  .page-hero-grid.airy .h1 { margin-bottom: 1.6rem; }
+  .page-hero-grid.airy .lead + .lead { margin-top: 1.3rem; }
+  .page-hero-grid.airy .checks { margin-top: 2.2rem; gap: 0.9rem; }
+  .page-hero-grid.airy .quick-form { margin-top: 2.2rem; }
+}
 .contact-photo { margin: 1.6rem 0 0; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); aspect-ratio: 3 / 2; background: #e9ebef; }
 .contact-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .page-hero .sub-h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.4rem, 2.3vw, 2rem); line-height: 1.1; color: var(--navy); margin: -0.35rem 0 1rem; letter-spacing: 0.005em; }
