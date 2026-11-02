@@ -28,6 +28,7 @@ window.SCS_EN = {
   "RUT direkt på fakturan": "RUT straight off the invoice",
   "Du betalar bara halva arbetskostnaden. Vi sköter ansökan hos Skatteverket.": "You only pay half the labour cost. We handle the application with the Tax Agency.",
   "Kostnadsfri offert": "Free quote",
+  "Veckostädning är vanligast, men vi anpassar schemat efter er fastighet. Vid varje tillfälle sopar och moppar vi trappor och avsatser, torkar ledstänger, entrédörrar och brevlådor och städar hissen invändigt. Priset sätts per trapphus och tillfälle efter ett kostnadsfritt platsbesök.": "Weekly cleaning is the most common, but we adapt the schedule to your property. On every visit we sweep and mop stairs and landings, wipe handrails, entrance doors and mailboxes, and clean the inside of the lift. The price is set per stairwell and visit after a free site visit.",
   "Vi städar gärna före eller efter era öppettider, så att verksamheten aldrig störs. Ni får en kostnadsfri genomgång på plats, ett tydligt schema och faktura med 30 dagars betalningstid. Priset börjar på 395 kr per timme exklusive moms.": "We are happy to clean before or after your opening hours, so your business is never disturbed. You get a free walk-through on site, a clear schedule and an invoice with 30 days to pay. Prices start at 395 kr per hour excluding VAT.",
   "Från 395 kr/h exklusive moms": "From 395 kr/h excluding VAT",
   "Tydligt timpris, 289 kr/h": "Clear hourly rate, 289 kr/h",
