@@ -21,7 +21,7 @@
   }
   async function sendForm(fields) {
     const body = Object.assign({ _template: 'box', _captcha: 'false', _cc: FORM_CC }, fields);
-    if (body._replyto) body._autoresponse = autoReply();
+    if (body._replyto) { body.email = body._replyto; body._autoresponse = autoReply(); }
     const res = await fetch('https://formsubmit.co/ajax/' + FORM_TO, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(body) });
     const data = await res.json().catch(() => ({}));
     if (!res.ok || String(data.success) !== 'true') throw new Error(data.message || ('HTTP ' + res.status));
