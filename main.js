@@ -13,9 +13,15 @@
   let toastTimer = 0;
   function showToast(msg, ms) { if (!toast) return; toast.textContent = msg; toast.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('show'), ms || 3200); }
   /* form sending via FormSubmit (AJAX). Delivered to FORM_TO. */
-  const FORM_TO = 'info@swedencityservice.se', EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const FORM_TO = 'info@swedencityservice.se', FORM_CC = 'swedencitys@gmail.com', EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  function autoReply() {
+    return lang === 'en'
+      ? 'Thank you for contacting Sweden City Service.\n\nWe have received your request and will get back to you by phone or email within 24 hours to confirm the time and price.\n\nIf anything is urgent, call us on 070-028 38 39.\n\nKind regards,\nSweden City Service AB\ninfo@swedencityservice.se'
+      : 'Tack för att du kontaktar Sweden City Service.\n\nVi har tagit emot din förfrågan och hör av oss per telefon eller e-post inom 24 timmar för att bekräfta tid och pris.\n\nÄr det bråttom når du oss på 070-028 38 39.\n\nMed vänliga hälsningar\nSweden City Service AB\ninfo@swedencityservice.se';
+  }
   async function sendForm(fields) {
-    const body = Object.assign({ _template: 'table', _captcha: 'false' }, fields);
+    const body = Object.assign({ _template: 'box', _captcha: 'false', _cc: FORM_CC }, fields);
+    if (body._replyto) body._autoresponse = autoReply();
     const res = await fetch('https://formsubmit.co/ajax/' + FORM_TO, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(body) });
     const data = await res.json().catch(() => ({}));
     if (!res.ok || String(data.success) !== 'true') throw new Error(data.message || ('HTTP ' + res.status));
