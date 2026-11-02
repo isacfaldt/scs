@@ -146,6 +146,7 @@
       $('.bk-rut-row', form).style.display = rut ? '' : 'none';
       updateLive();
     }
+    function isWeekend(d) { if (!d) return false; try { const w = new Date(d + 'T12:00:00').getDay(); return w === 0 || w === 6; } catch (e) { return false; } }
     function fmtDate(d) { if (!d) return ''; try { return new Date(d + 'T12:00:00').toLocaleDateString(lang === 'en' ? 'en-GB' : 'sv-SE', { weekday: 'short', day: 'numeric', month: 'short' }); } catch (e) { return d; } }
     /* prisuppskattning (riktpriser, efter RUT där det gäller) */
     const fmt = (n) => Math.round(n / 10) * 10;
@@ -188,7 +189,7 @@
       const inp = selected(); if (!inp || !priceBox) return;
       const est = estimate(inp.value, parseInt(val('#b-yta'), 10) || 0, radioVal('frekvens'));
       if (!est) { priceBox.hidden = true; return; }
-      priceBox.hidden = false; priceVal.textContent = est.val; priceNote.textContent = est.note + '. ' + t('Riktpris, vi bekräftar.', 'Guide price, we confirm.');
+      priceBox.hidden = false; priceVal.textContent = est.val; priceNote.textContent = est.note + '. ' + (isWeekend(val('#b-datum')) ? t('Riktpris för vardag. Helgpris bekräftas i offerten.', 'Weekday guide price. Weekend price confirmed in the quote.') : t('Riktpris, vi bekräftar.', 'Guide price, we confirm.'));
       const b2b = catOf[inp.value] === 'foretag'; $$('.bk-perk-rut').forEach(el => el.hidden = b2b); $$('.bk-perk-b2b').forEach(el => el.hidden = !b2b);
       return est;
     }
@@ -211,6 +212,7 @@
         [t('Storlek', 'Size'), val('#b-yta') ? val('#b-yta') + ' m²' : t('Ej angivet', 'Not given')],
         inp.dataset.freq === '1' ? [t('Hur ofta', 'How often'), tr(radioVal('frekvens'))] : null,
         [t('När', 'When'), (fmtDate(val('#b-datum')) || t('Snarast', 'As soon as possible')) + ', ' + tr(radioVal('tid')).toLowerCase()],
+        isWeekend(val('#b-datum')) ? [t('Helgbokning', 'Weekend booking'), t('Ja, helgpris bekräftas i offerten', 'Yes, weekend price confirmed in the quote')] : null,
         [t('Kontakt', 'Contact'), [val('#f-namn'), val('#f-tel'), val('#f-epost')].filter(Boolean).join(' · ')],
         inp.dataset.rut === '1' ? [t('RUT-avdrag', 'RUT deduction'), form.querySelector('input[name="rut"]').checked ? t('Ja', 'Yes') : t('Nej', 'No')] : null,
         (function () { const e = updatePrice(); return e ? [t('Uppskattat pris', 'Estimated price'), e.val + ' (' + t('riktpris', 'guide price') + ')'] : null; })(),
@@ -244,7 +246,7 @@
       e.preventDefault();
       if (!validate(3)) { goStep(3); return; }
       const inp = selected();
-      const fields = { _subject: t('Bokning: ', 'Booking: ') + tr(inp.value) };
+      const fields = { _subject: t('Bokning: ', 'Booking: ') + tr(inp.value) + (isWeekend(val('#b-datum')) ? t(' (helg)', ' (weekend)') : '') };
       [...form.querySelectorAll('#bk-summary div')].forEach(d => { fields[d.querySelector('dt').textContent] = d.querySelector('dd').textContent; });
       const email = val('#f-epost'); if (email) fields._replyto = email;
       fields['Skickat från'] = location.href;
