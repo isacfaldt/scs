@@ -1,3 +1,4 @@
 preview/
 .claude/
 .wrangler/
+.dev.vars

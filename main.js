@@ -12,19 +12,14 @@
   const toast = $('.toast');
   let toastTimer = 0;
   function showToast(msg, ms) { if (!toast) return; toast.textContent = msg; toast.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('show'), ms || 3200); }
-  /* form sending via FormSubmit (AJAX). Delivered to FORM_TO. */
-  const FORM_TO = 'info@swedencityservice.se', FORM_CC = 'swedencitys@gmail.com', EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-  function autoReply() {
-    return lang === 'en'
-      ? 'Thank you for contacting Sweden City Service.\n\nWe have received your request and will get back to you by phone or email within 24 hours to confirm the time and price.\n\nIf anything is urgent, call us on 070-028 38 39.\n\nKind regards,\nSweden City Service AB\ninfo@swedencityservice.se'
-      : 'Tack för att du kontaktar Sweden City Service.\n\nVi har tagit emot din förfrågan och hör av oss per telefon eller e-post inom 24 timmar för att bekräfta tid och pris.\n\nÄr det bråttom når du oss på 070-028 38 39.\n\nMed vänliga hälsningar\nSweden City Service AB\ninfo@swedencityservice.se';
-  }
-  async function sendForm(fields) {
-    const body = Object.assign({ _template: 'box', _captcha: 'false', _cc: FORM_CC }, fields);
-    if (body._replyto) { body.email = body._replyto; body._autoresponse = autoReply(); }
-    const res = await fetch('https://formsubmit.co/ajax/' + FORM_TO, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(body) });
+  /* form sending: POST till /api/boka (Cloudflare Pages Function) som mejlar
+     Sweden City Service och skickar bekräftelse till kunden via Brevo. */
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  async function sendForm(payload) {
+    payload.lang = lang; payload.page = location.href;
+    const res = await fetch('/api/boka', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) });
     const data = await res.json().catch(() => ({}));
-    if (!res.ok || String(data.success) !== 'true') throw new Error(data.message || ('HTTP ' + res.status));
+    if (!res.ok || !data.ok) throw new Error(data.error || ('HTTP ' + res.status));
     return data;
   }
   const SEND_FAIL = () => t('Det gick inte att skicka just nu. Ring 070-028 38 39 eller mejla info@swedencityservice.se så hjälper vi dig.', 'We could not send your message right now. Call 070-028 38 39 or email info@swedencityservice.se and we will help you.');
@@ -252,17 +247,20 @@
       e.preventDefault();
       if (!validate(3)) { goStep(3); return; }
       const inp = selected();
-      const fields = { _subject: t('Bokning: ', 'Booking: ') + tr(inp.value) + (isWeekend(val('#b-datum')) ? t(' (helg)', ' (weekend)') : '') };
-      [...form.querySelectorAll('#bk-summary div')].forEach(d => { fields[d.querySelector('dt').textContent] = d.querySelector('dd').textContent; });
-      const email = val('#f-epost'); if (email) fields._replyto = email;
-      fields['Skickat från'] = location.href;
+      const payload = { kind: 'booking', service: inp.value, weekend: isWeekend(val('#b-datum')), rows: [], customer: { name: val('#f-namn').trim(), email: val('#f-epost').trim(), phone: val('#f-tel').trim() } };
+      [...form.querySelectorAll('#bk-summary div')].forEach(d => { const k = d.querySelector('dt').textContent, v = d.querySelector('dd').textContent; payload.rows.push([k, v]); if (k === t('När', 'When')) payload.when = v; });
+      if (lang === 'en') payload.service = tr(inp.value);
+      if (val('#b-datum')) { try { payload.when = new Date(val('#b-datum') + 'T12:00:00').toLocaleDateString(lang === 'en' ? 'en-GB' : 'sv-SE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) + (radioVal('tid') ? ', ' + tr(radioVal('tid')).toLowerCase() : ''); } catch (e) {} }
       const btn = form.querySelector('button[type="submit"]'); const oldHtml = btn ? btn.innerHTML : '';
       if (btn) { btn.disabled = true; btn.textContent = t('Skickar…', 'Sending…'); }
-      try { await sendForm(fields); }
+      let sent;
+      try { sent = await sendForm(payload); }
       catch (err) { if (btn) { btn.disabled = false; btn.innerHTML = oldHtml; } showToast(SEND_FAIL(), 8000); return; }
       if (btn) { btn.disabled = false; btn.innerHTML = oldHtml; }
-      const th = form.querySelector('.th-text'); const name = (val('#f-namn') || '').trim().split(' ')[0]; const tel = (val('#f-tel') || '').trim();
-      if (th) th.textContent = t(`${name ? name + ', din' : 'Din'} bokning av ${tr(inp.value).toLowerCase()} är mottagen. Vi hör av oss per telefon eller e-post inom kort och bekräftar tid och pris.`, `${name ? name + ', your' : 'Your'} booking for ${tr(inp.value).toLowerCase()} has been received. We will get back to you by phone or email shortly to confirm the time and price.`);
+      const th = form.querySelector('.th-text'); const name = (val('#f-namn') || '').trim().split(' ')[0]; const email = (val('#f-epost') || '').trim();
+      const nr = sent && sent.number ? t(` Bokningsnummer ${sent.number}.`, ` Booking number ${sent.number}.`) : '';
+      const conf = sent && sent.confirmed ? t(` En bekräftelse är skickad till ${email}.`, ` A confirmation has been sent to ${email}.`) : '';
+      if (th) th.textContent = t(`${name ? name + ', din' : 'Din'} bokning av ${tr(inp.value).toLowerCase()} är mottagen.${nr}${conf} Vi hör av oss per telefon eller e-post inom 24 timmar och bekräftar tid och pris.`, `${name ? name + ', your' : 'Your'} booking for ${tr(inp.value).toLowerCase()} has been received.${nr}${conf} We will get back to you by phone or email within 24 hours to confirm the time and price.`);
       const grid = form.closest('.book-grid'), note = grid && grid.querySelector('.bk-live-note');
       if (note) note.textContent = t('Din bokning är mottagen. Vi återkommer inom 24 timmar med bekräftelse och pris.', 'Your booking has been received. We will get back to you within 24 hours with a confirmation and price.');
       form.classList.add('sent'); try { form.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) {}
@@ -310,8 +308,7 @@
     const namn = $('#k-namn').value.trim(); if (!namn) { showToast(t('Fyll i ditt namn.', 'Please fill in your name.')); $('#k-namn').focus(); return; }
     const tel = $('#k-tel').value.trim(), epost = $('#k-epost').value.trim(), msg = $('#k-msg').value.trim();
     if (!EMAIL_RE.test(epost)) { showToast(t('Fyll i din e-post så att vi kan svara dig.', 'Please fill in your email so we can reply to you.')); $('#k-epost').focus(); return; }
-    const fields = { _subject: t('Kontakt: ', 'Contact: ') + $('#k-arende').value, 'Namn': namn, 'Telefon': tel, 'E-post': epost, 'Ärende': $('#k-arende').value, 'Meddelande': msg, 'Skickat från': location.href };
-    if (epost) fields._replyto = epost;
+    const fields = { kind: 'contact', subject: $('#k-arende').value, customer: { name: namn, email: epost, phone: tel }, rows: [[t('Namn', 'Name'), namn], [t('Telefon', 'Phone'), tel], [t('E-post', 'Email'), epost], [t('Ärende', 'Subject'), $('#k-arende').value], [t('Meddelande', 'Message'), msg]] };
     const btn = kf.querySelector('button[type="submit"]'); const oldHtml = btn ? btn.innerHTML : '';
     if (btn) { btn.disabled = true; btn.textContent = t('Skickar…', 'Sending…'); }
     try { await sendForm(fields); } catch (err) { if (btn) { btn.disabled = false; btn.innerHTML = oldHtml; } showToast(SEND_FAIL(), 8000); return; }

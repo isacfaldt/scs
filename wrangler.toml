@@ -1,0 +1,9 @@
+name = "swedencityservice"
+compatibility_date = "2026-01-01"
+pages_build_output_dir = "."
+
+# Räknare för bokningsnummer (Cloudflare KV). API-nyckeln till Brevo ligger
+# som hemlighet BREVO_KEY i Pages-projektet, aldrig i repot.
+[[kv_namespaces]]
+binding = "SCS_BOOKINGS"
+id = "de01f793d4af462ab65d1f542734db89"
