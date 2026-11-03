@@ -248,7 +248,21 @@
       if (!validate(3)) { goStep(3); return; }
       const inp = selected();
       const payload = { kind: 'booking', service: inp.value, weekend: isWeekend(val('#b-datum')), rows: [], customer: { name: val('#f-namn').trim(), email: val('#f-epost').trim(), phone: val('#f-tel').trim() } };
-      [...form.querySelectorAll('#bk-summary div')].forEach(d => { const k = d.querySelector('dt').textContent, v = d.querySelector('dd').textContent; payload.rows.push([k, v]); if (k === t('När', 'When')) payload.when = v; });
+      /* rader till Sweden City Service: allt kunden fyllt i, alltid på svenska */
+      const est = estimate(inp.value, parseInt(val('#b-yta'), 10) || 0, radioVal('frekvens')), svRows = [
+        ['Tjänst', inp.value],
+        ['Kategori', catOf[inp.value] === 'foretag' ? 'Företag' : catOf[inp.value] === 'flytt' ? 'Flytt' : 'Privat'],
+        ['Namn', val('#f-namn').trim()], ['Telefon', val('#f-tel').trim()], ['E-post', val('#f-epost').trim()],
+        ['Adress', val('#b-adress').trim() || 'Ej angivet'], ['Postnummer', val('#b-postnr').trim() || 'Ej angivet'],
+        ['Storlek', val('#b-yta') ? val('#b-yta') + ' m²' : 'Ej angivet'],
+        inp.dataset.freq === '1' ? ['Hur ofta', radioVal('frekvens')] : null,
+        ['Datum', val('#b-datum') ? new Date(val('#b-datum') + 'T12:00:00').toLocaleDateString('sv-SE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) : 'Snarast'],
+        ['Tid på dagen', radioVal('tid') || 'Flexibel'],
+        inp.dataset.rut === '1' ? ['RUT-avdrag', form.querySelector('input[name="rut"]').checked ? 'Ja, kunden vill ha RUT' : 'Nej'] : null,
+        ['Riktpris visat för kunden', est ? est.val + (est.note ? ' (' + est.note + ')' : '') : 'Inget pris visat, offert'],
+        ['Övrigt från kunden', val('#b-msg').trim() || 'Inget']
+      ].filter(Boolean);
+      payload.rows = svRows;
       if (lang === 'en') payload.service = tr(inp.value);
       if (val('#b-datum')) { try { payload.when = new Date(val('#b-datum') + 'T12:00:00').toLocaleDateString(lang === 'en' ? 'en-GB' : 'sv-SE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) + (radioVal('tid') ? ', ' + tr(radioVal('tid')).toLowerCase() : ''); } catch (e) {} }
       const btn = form.querySelector('button[type="submit"]'); const oldHtml = btn ? btn.innerHTML : '';

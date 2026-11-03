@@ -107,7 +107,7 @@ export async function onRequestPost({ request, env }) {
 
   const o = ownerMail(p, number), k = customerMail(p, number);
   try {
-    await brevo(env.BREVO_KEY, { sender: SENDER, to: TO, replyTo: { email: p.customer.email, name: p.customer.name }, subject: o.subject, htmlContent: o.html, textContent: o.text });
+    await brevo(env.BREVO_KEY, { sender: SENDER, to: env.TEST_TO ? [{ email: env.TEST_TO }] : TO, replyTo: { email: p.customer.email, name: p.customer.name }, subject: o.subject, htmlContent: o.html, textContent: o.text });
   } catch (e) { return json({ ok: false, error: String(e.message || e) }, 502); }
   let confirmed = true;
   try {
