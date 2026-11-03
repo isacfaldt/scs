@@ -33,12 +33,13 @@ function ownerMail(p, number) {
   const booking = p.kind === 'booking';
   const title = booking ? `Ny bokning nr ${number}` : 'Nytt meddelande via kontaktformuläret';
   const weekend = p.weekend ? `<p style="margin:0 0 16px;padding:10px 14px;background:#FFF4DF;border-radius:8px;font-size:14px;"><strong>Helgbokning.</strong> Helgpris bekräftas i offerten.</p>` : '';
+  const english = p.lang === 'en' ? `<p style="margin:0 0 16px;padding:10px 14px;background:#E8EDF8;border-radius:8px;font-size:14px;"><strong>Engelsktalande kund.</strong> Kunden använde den engelska sidan och har fått sin bekräftelse på engelska.</p>` : '';
   const inner = `<h1 style="margin:0 0 6px;font-size:22px;font-weight:700;">${esc(title)}</h1>
-<p style="margin:0 0 18px;color:#6B6B70;font-size:14px;">${esc(p.service || p.subject || '')}</p>${weekend}${rowsTable(p.rows)}
+<p style="margin:0 0 18px;color:#6B6B70;font-size:14px;">${esc(p.service || p.subject || '')}</p>${weekend}${english}${rowsTable(p.rows)}
 <p style="margin:22px 0 0;"><a href="mailto:${esc(p.customer.email)}" style="display:inline-block;background:${NAVY};color:#fff;text-decoration:none;padding:12px 20px;border-radius:999px;font-size:14px;font-weight:700;">Svara ${esc(p.customer.name.split(' ')[0])}</a>
 &nbsp; <a href="tel:${esc(p.customer.phone.replace(/[^\d+]/g, ''))}" style="display:inline-block;color:${NAVY};text-decoration:none;padding:12px 8px;font-size:14px;font-weight:700;">Ring ${esc(p.customer.phone)}</a></p>
 <p style="margin:18px 0 0;font-size:12px;color:#6B6B70;">Skickat från ${esc(p.page || 'scs.isacfaldt.se')}</p>`;
-  const text = `${title}\n${p.service || p.subject || ''}\n${p.weekend ? 'HELGBOKNING, helgpris bekräftas i offerten\n' : ''}\n` + p.rows.map(([k, v]) => `${k}: ${v}`).join('\n') + `\n\nSkickat från ${p.page || ''}`;
+  const text = `${title}\n${p.service || p.subject || ''}\n${p.weekend ? 'HELGBOKNING, helgpris bekräftas i offerten\n' : ''}${p.lang === 'en' ? 'ENGELSKTALANDE KUND\n' : ''}\n` + p.rows.map(([k, v]) => `${k}: ${v}`).join('\n') + `\n\nSkickat från ${p.page || ''}`;
   const subject = booking
     ? `Bokning nr ${number}: ${p.service}${p.weekend ? ' (helg)' : ''}`
     : `Kontakt: ${p.subject || 'Meddelande'} från ${p.customer.name}`;
