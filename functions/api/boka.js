@@ -56,15 +56,18 @@ function customerMail(p, number) {
     return { subject: en ? 'We have received your message' : 'Vi har tagit emot ditt meddelande', html: shell(inner, en), text };
   }
   /* Bokningsbekräftelse, formatet Farzin visade */
+  const first = p.customer.name.split(' ')[0];
   const L = en
-    ? { h: 'Booking confirmation', no: 'Booking no', name: 'Name', email: 'Email', phone: 'Phone', svc: 'Booked service', when: 'Date & time', thanks: 'Thank you for choosing us!', contact: 'Contact' }
-    : { h: 'Bokningsbekräftelse', no: 'Bokningsnr', name: 'Namn', email: 'E-post', phone: 'Telefon', svc: 'Bokad tjänst', when: 'Datum & tid', thanks: 'Tack för att du valde oss!', contact: 'Kontakt' };
-  const rows = [[L.no, String(number)], [L.name, p.customer.name], [L.email, p.customer.email], [L.phone, p.customer.phone], [L.svc, p.service], [L.when, p.when || '']];
-  const inner = `<h1 style="margin:0 0 18px;font-size:24px;font-weight:700;">${L.h}</h1>${rowsTable(rows)}
+    ? { h: 'Booking confirmation', hi: `Hi ${first}, thank you for your booking. We have received it and will get back to you within 24 hours to confirm the time and price.`, name: 'Name', email: 'Email', phone: 'Phone', svc: 'Booked service', addr: 'Address', when: 'Date & time', thanks: 'Thank you for choosing us!', change: 'Need to change something? Reply to this email or call us.', contact: 'Contact' }
+    : { h: 'Bokningsbekräftelse', hi: `Hej ${first}, tack för din bokning. Vi har tagit emot den och hör av oss inom 24 timmar för att bekräfta tid och pris.`, name: 'Namn', email: 'E-post', phone: 'Telefon', svc: 'Bokad tjänst', addr: 'Adress', when: 'Datum & tid', thanks: 'Tack för att du valde oss!', change: 'Behöver du ändra något, svara på det här mejlet eller ring oss.', contact: 'Kontakt' };
+  const rows = [[L.name, p.customer.name], [L.phone, p.customer.phone], [L.email, p.customer.email], [L.svc, p.service], p.address ? [L.addr, p.address] : null, [L.when, p.when || '']].filter(Boolean);
+  const inner = `<h1 style="margin:0 0 12px;font-size:24px;font-weight:700;">${L.h}</h1>
+<p style="margin:0 0 20px;font-size:15px;line-height:1.6;">${esc(L.hi)}</p>${rowsTable(rows)}
 <p style="margin:24px 0 4px;font-size:17px;font-weight:700;">${L.thanks}</p>
-<p style="margin:0;font-size:15px;line-height:1.6;">Sweden City Service<br>${L.contact} 0700283839</p>`;
-  const text = `${L.h}\n\n` + rows.map(([k, v]) => `${k}: ${v}`).join('\n') + `\n\n${L.thanks}\nSweden City Service\n${L.contact} 0700283839`;
-  return { subject: `${L.h} ${L.no.toLowerCase()} ${number}`, html: shell(inner, en), text };
+<p style="margin:0 0 14px;font-size:15px;line-height:1.6;">Sweden City Service<br>${L.contact} 0700283839</p>
+<p style="margin:0;font-size:14px;line-height:1.6;color:#6B6B70;">${L.change}</p>`;
+  const text = `${L.h}\n\n${L.hi}\n\n` + rows.map(([k, v]) => `${k}: ${v}`).join('\n') + `\n\n${L.thanks}\nSweden City Service\n${L.contact} 0700283839\n\n${L.change}`;
+  return { subject: `${L.h}: ${p.service}`, html: shell(inner, en), text };
 }
 
 async function brevo(key, msg) {
@@ -89,6 +92,7 @@ export async function onRequestPost({ request, env }) {
     service: clip(body.service, 80),
     subject: clip(body.subject, 80),
     when: clip(body.when, 120),
+    address: clip(body.address, 160),
     weekend: !!body.weekend,
     page: clip(body.page, 200),
     customer: { name: clip(c.name, 80), email: clip(c.email, 120), phone: clip(c.phone, 40) },

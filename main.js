@@ -263,6 +263,7 @@
         ['Övrigt från kunden', val('#b-msg').trim() || 'Inget']
       ].filter(Boolean);
       payload.rows = svRows;
+      payload.address = [val('#b-adress').trim(), val('#b-postnr').trim()].filter(Boolean).join(', ');
       if (lang === 'en') payload.service = tr(inp.value);
       if (val('#b-datum')) { try { payload.when = new Date(val('#b-datum') + 'T12:00:00').toLocaleDateString(lang === 'en' ? 'en-GB' : 'sv-SE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) + (radioVal('tid') ? ', ' + tr(radioVal('tid')).toLowerCase() : ''); } catch (e) {} }
       const btn = form.querySelector('button[type="submit"]'); const oldHtml = btn ? btn.innerHTML : '';
