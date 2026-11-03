@@ -14,13 +14,13 @@ const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&am
 const clip = (s, n) => String(s == null ? '' : s).replace(/\s+/g, ' ').trim().slice(0, n);
 const json = (obj, status) => new Response(JSON.stringify(obj), { status: status || 200, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' } });
 
-function shell(inner) {
+function shell(inner, en) {
   return `<!doctype html><html lang="sv"><body style="margin:0;padding:0;background:#F3F1ED;font-family:Helvetica,Arial,sans-serif;color:#1C1C1E;">
 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#F3F1ED;"><tr><td align="center" style="padding:28px 12px;">
 <table role="presentation" width="560" cellspacing="0" cellpadding="0" style="max-width:560px;width:100%;background:#fff;border-radius:14px;overflow:hidden;">
 <tr><td style="background:${NAVY};padding:18px 28px;color:#fff;font-size:15px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;">Sweden City Service</td></tr>
 <tr><td style="padding:28px;">${inner}</td></tr>
-<tr><td style="padding:16px 28px 22px;border-top:1px solid #ECE7DF;font-size:12px;line-height:1.6;color:#6B6B70;">Sweden City Service AB<br>Kontakt ${PHONE} · info@swedencityservice.se</td></tr>
+<tr><td style="padding:16px 28px 22px;border-top:1px solid #ECE7DF;font-size:12px;line-height:1.6;color:#6B6B70;">Sweden City Service AB<br>${en ? 'Contact' : 'Kontakt'} ${PHONE} · info@swedencityservice.se</td></tr>
 </table></td></tr></table></body></html>`;
 }
 
@@ -52,7 +52,7 @@ function customerMail(p, number) {
       ? `<h1 style="margin:0 0 12px;font-size:22px;">Thank you for your message</h1><p style="margin:0 0 10px;font-size:15px;line-height:1.6;">We have received your message and will get back to you within 24 hours.</p><p style="margin:0;font-size:15px;line-height:1.6;">If anything is urgent, call us on ${PHONE}.</p>`
       : `<h1 style="margin:0 0 12px;font-size:22px;">Tack för ditt meddelande</h1><p style="margin:0 0 10px;font-size:15px;line-height:1.6;">Vi har tagit emot ditt meddelande och hör av oss inom 24 timmar.</p><p style="margin:0;font-size:15px;line-height:1.6;">Är det bråttom når du oss på ${PHONE}.</p>`;
     const text = en ? `Thank you for your message. We have received it and will get back to you within 24 hours. If anything is urgent, call us on ${PHONE}.\n\nSweden City Service` : `Tack för ditt meddelande. Vi har tagit emot det och hör av oss inom 24 timmar. Är det bråttom når du oss på ${PHONE}.\n\nSweden City Service`;
-    return { subject: en ? 'We have received your message' : 'Vi har tagit emot ditt meddelande', html: shell(inner), text };
+    return { subject: en ? 'We have received your message' : 'Vi har tagit emot ditt meddelande', html: shell(inner, en), text };
   }
   /* Bokningsbekräftelse, formatet Farzin visade */
   const L = en
@@ -63,7 +63,7 @@ function customerMail(p, number) {
 <p style="margin:24px 0 4px;font-size:17px;font-weight:700;">${L.thanks}</p>
 <p style="margin:0;font-size:15px;line-height:1.6;">Sweden City Service<br>${L.contact} 0700283839</p>`;
   const text = `${L.h}\n\n` + rows.map(([k, v]) => `${k}: ${v}`).join('\n') + `\n\n${L.thanks}\nSweden City Service\n${L.contact} 0700283839`;
-  return { subject: `${L.h} ${L.no.toLowerCase()} ${number}`, html: shell(inner), text };
+  return { subject: `${L.h} ${L.no.toLowerCase()} ${number}`, html: shell(inner, en), text };
 }
 
 async function brevo(key, msg) {
