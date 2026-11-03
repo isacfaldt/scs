@@ -4,7 +4,7 @@
    2) en bekräftelse till kunden, via Brevo (transaktionsmejl).
    Bokningsnummer räknas upp i KV-lagret SCS_BOOKINGS (nyckel "next"). */
 
-const SENDER = { name: 'Sweden City Service', email: 'info@swedencityservice.se' };
+const SENDER = { name: 'Sweden City Service AB', email: 'info@swedencityservice.se' };
 const TO = [{ email: 'info@swedencityservice.se', name: 'Sweden City Service' }, { email: 'swedencitys@gmail.com', name: 'Sweden City Service' }];
 const PHONE = '070-028 38 39';
 const NAVY = '#141E66';
@@ -18,7 +18,7 @@ function shell(inner, en) {
   return `<!doctype html><html lang="sv"><body style="margin:0;padding:0;background:#F3F1ED;font-family:Helvetica,Arial,sans-serif;color:#1C1C1E;">
 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#F3F1ED;"><tr><td align="center" style="padding:28px 12px;">
 <table role="presentation" width="560" cellspacing="0" cellpadding="0" style="max-width:560px;width:100%;background:#fff;border-radius:14px;overflow:hidden;">
-<tr><td style="background:${NAVY};padding:18px 28px;color:#fff;font-size:15px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;">Sweden City Service</td></tr>
+<tr><td style="background:${NAVY};padding:18px 28px;color:#fff;font-size:15px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;">Sweden City Service AB</td></tr>
 <tr><td style="padding:28px;">${inner}</td></tr>
 <tr><td style="padding:16px 28px 22px;border-top:1px solid #ECE7DF;font-size:12px;line-height:1.6;color:#6B6B70;">Sweden City Service AB<br>${en ? 'Contact' : 'Kontakt'} ${PHONE} · info@swedencityservice.se</td></tr>
 </table></td></tr></table></body></html>`;
