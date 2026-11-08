@@ -397,6 +397,8 @@ body.menu-open .mobile-menu { opacity: 1; visibility: visible; transform: none; 
 .contact-photo { margin: 1.6rem 0 0; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); aspect-ratio: 3 / 2; background: #e9ebef; }
 .contact-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .page-hero .sub-h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.4rem, 2.3vw, 2rem); line-height: 1.1; color: var(--navy); margin: -0.75rem 0 1rem; letter-spacing: 0.005em; }
+.page-hero .h1.h1-big { font-size: clamp(2.2rem, 3.1vw, 2.7rem); }
+.page-hero .sub-h1.sub-h1-big { font-size: clamp(1.6rem, 2.7vw, 2.35rem); }
 .page-hero [style*="text-align:center"] .lead { margin-left: auto; margin-right: auto; }
 .page-hero-media { position: relative; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-lg); aspect-ratio: 4 / 5; }
 .page-hero-media img { width: 100%; height: 100%; object-fit: cover; }
