@@ -348,6 +348,36 @@ body.menu-open .mobile-menu { opacity: 1; visibility: visible; transform: none; 
 .footer-brand .socials a:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
 .footer-mid { padding: 1.5rem 0 2.5rem; display: flex; flex-wrap: wrap; gap: 0.8rem 2rem; justify-content: space-between; font-size: 0.85rem; color: var(--ink-mute); font-weight: 600; }
 .footer-mid a:hover { color: var(--navy); }
+.footer-mid span a { text-decoration: none; border-bottom: 1px solid transparent; transition: color .2s, border-color .2s; }
+.footer-mid span a:hover { border-bottom-color: var(--navy); }
+
+/* ---------- integritetspolicy ---------- */
+.legal-hero { align-items: start; }
+.legal-meta { margin-top: 1.2rem; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-mute); }
+.legal-contact { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 1.6rem 1.7rem; max-width: 380px; justify-self: end; }
+.legal-contact p { margin-top: 0.6rem; color: var(--ink-soft); line-height: 1.6; }
+.legal-contact a { color: var(--navy); font-weight: 700; text-decoration: none; border-bottom: 1px solid var(--line); }
+.legal-contact a:hover { border-bottom-color: var(--navy); }
+.legal-section { background: #fff; }
+.legal { display: grid; }
+.legal-item { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 0.6rem 2.4rem; padding: clamp(1.6rem, 2.6vw, 2.2rem) 0; border-top: 1px solid var(--line); }
+.legal-item:last-child { border-bottom: 1px solid var(--line); }
+.legal-item .num { font: 800 0.78rem/1 var(--font-body); letter-spacing: 0.18em; color: var(--ink-mute); padding-top: 0.45rem; }
+.legal-item h2 { font: 800 1.2rem/1.25 var(--font-body); color: var(--navy); margin-bottom: 0.7rem; letter-spacing: -0.005em; }
+.legal-item p, .legal-item li { color: var(--ink-soft); line-height: 1.68; max-width: 64ch; }
+.legal-item p + p, .legal-item ul + p { margin-top: 0.75rem; }
+.legal-item ul { margin: 0.7rem 0 0; padding-left: 1.15rem; display: grid; gap: 0.35rem; }
+.legal-item li::marker { color: var(--navy); }
+.legal-item strong { color: var(--ink); font-weight: 800; }
+.legal-item a { color: var(--navy); font-weight: 700; text-decoration: none; border-bottom: 1px solid var(--line); transition: border-color .2s; }
+.legal-item a:hover { border-bottom-color: var(--navy); }
+.booking .fine a { color: var(--navy); font-weight: 700; text-decoration: none; border-bottom: 1px solid var(--line); }
+.booking .fine a:hover { border-bottom-color: var(--navy); }
+@media (max-width: 720px) {
+  .legal-contact { justify-self: stretch; max-width: none; }
+  .legal-item { grid-template-columns: 1fr; gap: 0.3rem; }
+  .legal-item .num { padding-top: 0; }
+}
 
 /* ---------- undersidor ---------- */
 .wrap.narrow { max-width: 860px; }
