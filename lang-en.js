@@ -562,7 +562,6 @@ window.SCS_EN = {
   "Professionell flytthjälp i Stockholm": "Professional moving help in Stockholm",
   /* undersidor */
   "Hemstädning som förenklar din vardag": "Home cleaning that makes everyday life easier",
-  "Regelbunden hemstädning som förenklar din vardag": "Regular home cleaning that makes everyday life easier",
   "Längtar du efter att komma hem till ett nystädat och väldoftande hem? Med vår hemstädning i Stockholm får du mer tid över till familj, vänner och dina intressen. Vi anpassar städningen efter dina behov och önskemål, oavsett om du vill ha hjälp varje vecka, varannan vecka eller en gång i månaden.": "Longing to come home to a freshly cleaned, fresh-smelling home? With our home cleaning in Stockholm you get more time for family, friends and the things you enjoy. We adapt the cleaning to your needs and wishes, whether you want help every week, every other week or once a month.",
   "Samtliga rum": "All rooms",
   "Dammsugning av golv och mattor": "Vacuuming floors and rugs",
